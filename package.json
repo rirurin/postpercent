@@ -1,6 +1,6 @@
 {
-  "name": "~TODO~",
-  "version": "0.0.1",
+  "name": "postpercent",
+  "version": "0.1",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
@@ -9,6 +9,7 @@
     "format": "prettier --write --plugin-search-dir=. ."
   },
   "devDependencies": {
+    "@sveltejs/adapter-vercel": "next",
     "@sveltejs/kit": "next",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
