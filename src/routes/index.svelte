@@ -2,6 +2,7 @@
     import { page, cat, dropdownActive } from './storage.js';
     import Graph from './components/graph.svelte';
     import Dropdown from './components/dropdown.svelte';
+    import Dialog from './components/dialog.svelte';
 
     function nextPage()  { page.update(n => n + 1);}
     function prevPage()  { $page == 0 ? page.set(0) : page.update(n => n - 1);}

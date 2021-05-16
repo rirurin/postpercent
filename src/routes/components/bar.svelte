@@ -7,17 +7,21 @@
     import { onMount } from 'svelte';
     let user;
     let custom;
+    let barWidth = 0;
+    let barColor = "#333333";
 
     async function getData() {
-        await fetch(`https://my-ocular.jeffalo.net/api/user/${username}`)
-        .then(res => res.json())
-        .then(data => {
-            custom = data;
-        })
         await fetch(`https://scratchdb.lefty.one/v3/user/info/${username}`)
         .then(res => res.json())
         .then(data => {
             user = data;
+            barWidth = width;
+        })
+        await fetch(`https://my-ocular.jeffalo.net/api/user/${username}`)
+        .then(res => res.json())
+        .then(data => {
+            custom = data;
+            barColor = custom.color;
         })
     }
     let promise = getData();
@@ -28,25 +32,22 @@
 </script>
 
 
-{#await promise}
-<p>Loading bar...</p>
-{:then}
 <div id="container">
     <ul class="rank">
         <li>{rank}</li>
     </ul>
-    <ul class="bar" style="width: {width}%; background-color: {custom.color};">
-        <!-- svelte-ignore a11y-missing-attribute -->
+    <ul class="bar" style="width: {barWidth}%; background-color: {barColor}; transition: width 1s, background-color 1s;">
         {#if user}
-            <li><img src="https://cdn2.scratch.mit.edu/get_image/user/{user.id}_90x90.png" style={width > 3 ? "width: 2em; height: 2em;" : "display: none;"}></li>
+            <!-- svelte-ignore a11y-missing-attribute -->
+            <li><a href="https://shefwerld.rirurin.com/post/user?user={user.username}"><img src="https://cdn2.scratch.mit.edu/get_image/user/{user.id}_90x90.png" style={width > 3 ? "width: 2em; height: 2em;" : "display: none;"}></a></li>
+            <li class="username"><a href="https://shefwerld.rirurin.com/post/user?user={user.username}"><nobr>{user.username}</nobr></a></li>
         {:else}
-        <li><span class="iconify" data-icon="ant-design:user-outlined" data-inline="false"></span></li>
+            <li><a href="https://shefwerld.rirurin.com/post/user?user={username}"><span class="iconify" data-icon="ant-design:user-outlined" data-inline="false"></span></a></li>
+            <li class="username"><a href="https://shefwerld.rirurin.com/post/user?user={username}"><nobr>{username}</nobr></a></li>
         {/if}
-        <li class="username"><a href="https://shefwerld.rirurin.com/post/user?user={user.username}"><nobr>{user.username}</nobr></a></li>
         <li class="posts">{posts}</li>
     </ul>
 </div>
-{/await}
 
 <style>
     #container  {
