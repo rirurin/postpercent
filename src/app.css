@@ -5,6 +5,7 @@
 	--background-hover: #333333;
 	--graph-axes: #4a4a4a;
 	--text: #ffffff;
+	--textAlt: #1c1c1c;
 	--accent: #f54260;
 }
 body	{
@@ -16,4 +17,9 @@ body	{
 a	{
 	color: inherit;
 	text-decoration: none;
+}
+.loading	{
+	display: flex;
+	margin: auto;
+	height: 6em;
 }

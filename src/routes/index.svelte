@@ -1,13 +1,11 @@
 <script>
-    import { page, cat, dropdownActive } from './storage.js';
+    import { page, cat, dropdownActive, categories } from './storage.js';
     import Graph from './components/graph.svelte';
     import Dropdown from './components/dropdown.svelte';
-    import Dialog from './components/dialog.svelte';
-
+    
     function nextPage()  { page.update(n => n + 1);}
     function prevPage()  { $page == 0 ? page.set(0) : page.update(n => n - 1);}
     function searPage()  {const pageInput = parseInt(prompt("Search for a page"), 10); /^[0-9.,]+$/.test(pageInput) ? page.set(pageInput - 1) : alert("Not a number :(((((")}
-    function settings()  {alert("(NOT IMPLEMENTED YET) Graph Settings");}
     function toggleDropdown() {$dropdownActive ? dropdownActive.set(false) : dropdownActive.set(true)}
     let category = $cat;
     $: category = $cat;
@@ -24,10 +22,10 @@
             <li on:click={prevPage}><span class="iconify" data-icon="topcoat:back" data-inline="false" alt="Previous Page">Previous Page</span></li>
             <li on:click={searPage}><span class="iconify" data-icon="topcoat:search" data-inline="false" alt="Go to Page">Go to Page</span></li>
             <li on:click={nextPage}><span class="iconify" data-icon="topcoat:next" data-inline="false" alt="Next Page">Next Page</span></li>
-            <li on:click={settings}><span class="iconify" data-icon="bytesize:settings" data-inline="false" alt="Settings">Settings</span></li>
+           
         </ul>
     </header>
-    <Dropdown></Dropdown>
+    <Dropdown options={categories.map(x => x[1])}></Dropdown>
 </div>
 
 <style>

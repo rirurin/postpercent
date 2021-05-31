@@ -38,7 +38,7 @@
 </script>
 <main>
 {#await promise}
-<p class="loading">loading...</p>
+<img src="../../static/loading.gif" alt="Loading" class="loading">
 {:then}
     <!--
     <Axes pos={2.7} title={0}></Axes>
