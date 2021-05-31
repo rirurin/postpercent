@@ -189,10 +189,6 @@
 
 
 <style>
-
-	main   {
-        padding: 10px calc(4% + 10px);
-    }
 	canvas	{
 		overflow: hidden;
 	}

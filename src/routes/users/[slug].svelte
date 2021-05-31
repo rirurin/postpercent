@@ -28,8 +28,6 @@
         .then(res => res.json())
         .then(data => {
             forum = data;
-			console.log(Object.entries(forum.counts))
-			// console.log(forum)
         })
 		await fetch(`https://my-ocular.jeffalo.net/api/user/${slug}`)
         .then(res => res.json())
