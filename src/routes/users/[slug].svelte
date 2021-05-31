@@ -14,9 +14,11 @@
 	
 	export let slug;
 
+	let username = slug;
 	let user, forum, custom;
 	let headColor = "var(--accent)";
 	let monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	let lightText = 0;
 
 	async function getData()    {
 		await fetch(`https://scratchdb.lefty.one/v3/user/info/${slug}`)
@@ -34,23 +36,36 @@
         .then(data => {
             custom = data;
 			headColor = custom.color;
+			if (custom.color)   {
+                const contraster = [];
+                contraster.push(HEXtoRGB(custom.color).r); contraster.push(HEXtoRGB(custom.color).g); contraster.push(HEXtoRGB(custom.color).b);
+                const brightness = Math.round(((parseInt(contraster[0]) * 299) + (parseInt(contraster[1]) * 587) + (parseInt(contraster[2]) * 114)) / 1000);
+				brightness > 150 ? lightText = 1 : lightText = 0;
+            }
         })
     }
     let promise = getData();
     onMount(async() => {
         promise = getData();
     })
+
+	$: if (username !== slug)	{
+		username = slug;
+		promise = getData();
+	}
 </script>
 
 <svelte:head>
-	{#if user}
-		<title>{slug} - postpercent</title>
-	{:else}
-		<title>Loading user {slug}</title> 
-	{/if}
+	{#await promise}
+	<title>Loading user {slug}</title> 
+	{:then} 
+	<title>{slug} - postpercent</title>
+	{:catch}
+	<title>Error loading user {slug}</title>
+	{/await}
 </svelte:head>
 
-<header style="background-color:{headColor};">
+<header style="background-color:{headColor}; color:{lightText == 1 ? `var(--background)` : `var(--text)`}">
 	<ul class="pfp-container">
 		<li class="pfp">
 			{#if user}
@@ -66,7 +81,11 @@
 		</li>
 		<li class="status">
 			{#if custom}
-				{custom.status}
+				{#if custom.error == "no user found"}
+					No Ocular status found
+				{:else}
+					{custom.status}
+				{/if}
 			{:else}
 				Getting status...
 			{/if}
@@ -124,12 +143,10 @@
 		{/each}
 	</div>
 	<br>
+	<Charts username={slug} color={custom.color ? custom.color : `#f54260`}></Charts>
 	{:catch}
 	something broke
 	{/await}
-	{#if custom}	
-	<Charts username={slug} color={custom.color}></Charts>
-	{/if}
 	<br>
 </main>
 
@@ -139,7 +156,7 @@
         display: flex;
         justify-content: space-between;
         padding: 0 4%;
-		transition: background-color 1s;
+		transition: background-color 1s, color 1s;
 		position: sticky;
 		top: calc(3em + 1.5px);
     }

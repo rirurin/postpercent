@@ -1,7 +1,8 @@
 import { writable } from 'svelte/store';
-export const page = writable(0)
-export const cat = writable("total")
-export const dropdownActive = writable(false)
+export const page = writable(0);
+export const cat = writable("total");
+export const dropdownActive = writable(false);
+
 export const categories = [
     ["1", "Suggestions"],
     // ["2", "Dustbin"],
@@ -58,4 +59,4 @@ export const categories = [
     // ["57", "Scratch 3.0 Beta"],
     // ["58", "Camp Counselors 2020"],
     ["59", "فارسی"],
-  ]
+  ];

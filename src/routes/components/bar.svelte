@@ -36,7 +36,6 @@
                 if (brightness > 150)   {  
                     lightText = 1;
                 }
-                console.log(lightText);
             }
         })
     }

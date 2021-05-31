@@ -5,7 +5,7 @@
 	export let username;
     export let color;
 
-	let custom, precise;
+	let precise;
 	let ctx, ctx2, ctx3, ctx4;
 	let postoffset;
 
