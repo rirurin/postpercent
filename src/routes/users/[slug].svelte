@@ -164,7 +164,6 @@
 						<li>{i[1].count}</li>
 						<li>{rankifier(i[1].rank)}</li>
 						<li>{Math.round(i[1].count / forum.counts.total.count * 10000)/100}%</li>
-						<li>{j}</li>
 					</ul>
 				</div>
 			{/if}
