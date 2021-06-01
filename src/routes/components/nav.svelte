@@ -1,9 +1,3 @@
-<script>
-    function changeTheme () {
-        
-    }
-</script>
-
 <div id="wrapper">
     <nav>
         <li id="logo">
@@ -12,7 +6,7 @@
         </li>
         <li><a href="../">Leaderboards</a></li>
         <li><a href="../users/CatsUnited">Users</a></li>
-        <li on:click={changeTheme()}>Theme</li>
+        <li>Settings</li>
     </nav>
 </div>
 <style>
