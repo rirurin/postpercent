@@ -4,12 +4,38 @@
 	
 	export let username;
     export let color;
+	export let colors;
 
-	let precise;
-	let ctx, ctx2, ctx3, ctx4;
+	let precise, forum;
+	let ctx, ctx2, ctx3, ctx4, ctx5;
 	let postoffset;
 
 	async function getData()    {
+		await fetch(`https://scratchdb.lefty.one/v3/forum/user/info/${username}/`)
+        .then(res => res.json())
+        .then(data => {
+            forum = data;
+			let value = [];
+			let label = [];
+			for (let i = 1; i < Object.keys(forum.counts).length - 1; i++)	{
+				label.push(Object.entries(forum.counts)[i][0]);
+				value.push(Object.entries(forum.counts)[i][1].count);
+			}
+			var chart = new Chart(ctx5, {
+				type: 'pie',
+				data: {
+					datasets: [{
+						data: value,
+						backgroundColor: colors,
+						label: 'Scratcher Posts'
+					}],
+					labels: label,
+				},
+				options: {
+					responsive: true,
+				},
+			});
+        })
 		await fetch(`https://scratchdb.lefty.one/v3/forum/user/graph/${username}/total?segment=month&range=3650`)
 		.then(res => res.json())
         .then(data => {
@@ -161,9 +187,16 @@
 
         ctx3 = document.getElementById("postspermonth").getContext("2d");
 		ctx4 = document.getElementById("postsperweek").getContext("2d");
+
+		ctx5 = document.getElementById("postdistribution").getContext("2d");
         promise = getData();
     })
 </script>
+<ul class="category-header-container">
+    <li class="category-header-left">Post Distribution</li>
+    <li class="category-header-right">As of {new Date().toLocaleString('en-US')}</li>
+</ul>
+<canvas id="postdistribution" height=125></canvas>
 <ul class="category-header-container">
     <li class="category-header-left">Total Post Count</li>
     <li class="category-header-right">Monthly, All Time</li>

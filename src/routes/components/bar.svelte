@@ -3,8 +3,10 @@
     export let posts;
     export let rank;
     export let width;
+    export let percentage;
 
     import { onMount } from 'svelte';
+    import { cat } from '../storage.js';
     let user;
     let custom;
     let barWidth = 0;
@@ -56,11 +58,21 @@
             <!-- svelte-ignore a11y-missing-attribute -->
             <li><a href="/users/{user.username}"><img src="https://cdn2.scratch.mit.edu/get_image/user/{user.id}_90x90.png" style={width > 5 ? "width: 2em; height: 2em;" : "display: none;"}></a></li>
             <li class="username"><a href="/users/{user.username}"><nobr>{user.username}</nobr></a></li>
-            <li class="posts"><a href="/users/{user.username}">{posts}</a></li>
+            <li class="posts">
+                <a href="/users/{user.username}" style="font-weight: bold;">{posts}</a>
+                {#if barWidth > 12 && $cat != "total"}
+                    ({percentage}%)
+                {/if}
+            </li>
         {:else}
             <li><a href="/users/{username}"><span class="iconify" data-icon="ant-design:user-outlined" data-inline="false"></span></a></li>
             <li class="username"><a href="/users/{username}"><nobr>{username}</nobr></a></li>
-            <li class="posts"><a href="/users/{username}">{posts}</a></li>
+            <li class="posts">
+                <a href="/users/{username}" style="font-weight: bold;">{posts}</a>
+                {#if barWidth > 12 && $cat != "total"}
+                    ({percentage}%)
+                {/if}
+            </li>
         {/if}
     </ul>
 </div>
@@ -97,7 +109,7 @@
         margin-left: auto;
     }
     .posts {
-        font-weight: bold;
+        white-space: nowrap;
     }
     .username   {
         overflow: hidden;

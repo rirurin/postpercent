@@ -36,9 +36,18 @@
         catCheck = $cat;
     }
 </script>
+<svelte:head>
+    {#await promise}
+        <title>Loading leaderboards for {$cat}</title>
+    {:then} 
+        <title>{$cat} - postpercent</title>
+    {:catch}
+        <title>Looks like something happened...</title>
+    {/await}
+</svelte:head>
 <main>
 {#await promise}
-<img src="../../static/loading.gif" alt="Loading" class="loading">
+<img src="/loading.gif" alt="Loading" class="loading">
 {:then}
     <!--
     <Axes pos={2.7} title={0}></Axes>
@@ -47,7 +56,7 @@
     {/each}
     -->
     {#each users as {username, counts}, i }
-        <Bar username={username} posts={counts[category].count} rank={i+1 + $page*100} width={counts[category].count / users[0].counts[category].count * 97} />
+        <Bar username={username} posts={counts[category].count} rank={i+1 + $page*100} width={counts[category].count / users[0].counts[category].count * 97} percentage={Math.round(counts[category].count / counts.total.count * 10000) / 100} />
     {/each}
 {:catch}
     <p>how did you find page {$page + 1} are you hacking</p>

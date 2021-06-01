@@ -4,6 +4,7 @@ export const cat = writable("total");
 export const dropdownActive = writable(false);
 
 export const categories = [
+    ["0", "total"],
     ["1", "Suggestions"],
     // ["2", "Dustbin"],
     ["3", "Bugs and Glitches"],
