@@ -6,7 +6,7 @@
 </script>
 <script>
 	import { onMount } from 'svelte';
-	import { cat } from '../storage.js';
+	import { cat, logoaccentColor } from '../storage.js';
 	import { HEXtoRGB } from './components/hextorgb.js';
 	import { rankifier } from './components/rankifier.js';
 	import { HSVtoRGB } from './components/hsvtorgb.js';
@@ -40,6 +40,7 @@
         .then(data => {
             custom = data;
 			headColor = custom.color;
+			logoaccentColor.set(headColor);
 			if (custom.color)   {
                 const contraster = [];
                 contraster.push(HEXtoRGB(custom.color).r); contraster.push(HEXtoRGB(custom.color).g); contraster.push(HEXtoRGB(custom.color).b);
@@ -153,7 +154,7 @@
 <div id="compensator"></div>
 <main>
 	{#await promise}
-	<img src="/loading.gif" alt="Loading" class="loading">
+	<img src="/loading.gif" alt="Loading" class="loading" style="filter: brightness(100)">
 	{:then}
 	<div class="post-dist-container">
 		{#each Object.entries(forum.counts) as i, j}

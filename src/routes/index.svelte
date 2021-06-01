@@ -1,7 +1,9 @@
 <script>
-    import { page, cat, dropdownActive, categories } from './storage.js';
+    import { page, cat, dropdownActive, categories, logoaccentColor } from './storage.js';
     import Graph from './components/graph.svelte';
     import Dropdown from './components/dropdown.svelte';
+
+    logoaccentColor.set("var(--accent)");
     
     function nextPage()  { page.update(n => n + 1);}
     function prevPage()  { $page == 0 ? page.set(0) : page.update(n => n - 1);}

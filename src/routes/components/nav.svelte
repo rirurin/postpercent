@@ -1,8 +1,22 @@
+<script>
+import { onMount } from 'svelte';
+
+    import { logoaccentColor } from '../storage.js';
+
+    let logoColor = "var(--accent)";
+    $: if (logoColor != $logoaccentColor)   {
+        logoColor = $logoaccentColor
+    }
+    onMount(async() => {
+        logoColor = "var(--accent)";
+    })
+</script>
+
 <div id="wrapper">
     <nav>
         <li id="logo">
             <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 196" style="width: 2em;"><defs><style>.cls-1{fill:#fff;}</style></defs><polygon class="cls-1" points="131.46 63 28 63 28 93 114.14 93 131.46 63"/><polygon class="cls-1" points="28 113 28 143 48.79 143 48.79 163 88.79 143 228 143 228 113 28 113"/><polygon class="cls-1" points="124.54 193 228 193 228 163 141.86 163 124.54 193"/></svg>
-            postpercent <span style="color: var(--accent)">alpha</span>
+            postpercent <span style="color: {logoColor}; transition: color 1s;">alpha</span>
         </li>
         <li><a href="../">Leaderboards</a></li>
         <li><a href="../users/CatsUnited">Users</a></li>
