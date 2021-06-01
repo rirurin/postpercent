@@ -107,19 +107,22 @@
 		<ul class="misc-container">
 			<li class="first-posted">
 				{#if forum}
-					<nobr>{monthList[new Date(forum.firstSeen.date).getMonth()]} {rankifier(new Date(forum.firstSeen.date).getDate())}, {new Date(forum.firstSeen.date).getFullYear()}</nobr>
+					{new Date(forum.firstSeen.date).toLocaleString('en-US')}
 				{/if}
 			</li>
 			<li class="last-posted">
 				{#if forum}
-					<nobr>{monthList[new Date(forum.lastSeen.date).getMonth()]} {rankifier(new Date(forum.lastSeen.date).getDate())}, {new Date(forum.lastSeen.date).getFullYear()}</nobr>
+					{new Date(forum.lastSeen.date).toLocaleString('en-US')}
 				{/if}
 			</li>
+		</ul>
+		<ul class="misc-container">
+			<li><nobr>View user on:</nobr></li>
 			<li class="scratch-link">
-				<a href="https:/scratch.mit.edu/users/{slug}">scratch</a>
+				<a href="https:/scratch.mit.edu/users/{slug}">scratch <span class="iconify header-external-icon" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>
 			</li>
 			<li class="ocular-link">
-				<a href="https://ocular.jeffalo.net/user/{slug}">ocular</a>
+				<a href="https://ocular.jeffalo.net/user/{slug}">ocular <span class="iconify header-external-icon" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>
 			</li>
 		</ul>
 	</ul>
@@ -204,8 +207,8 @@
         padding: 10px calc(4% + 10px);
     }
 	.pfp img	{
-		width: 150px;
-		height: 150px;
+		width: 170px;
+		height: 170px;
 	}
 	.post-dist-container	{
 		display: flex;
@@ -244,5 +247,65 @@
 	}
 	.post-dist-bar li:first-child	{
 		font-weight: bold;
+	}
+	.misc-container li, .total-posts-header, .scratch-link, .ocular-link	{
+		white-space: nowrap;
+	}
+	.total-post-container	{
+		text-align: right;
+	}
+	@media only screen and (max-width: 720px)   {
+        .username, .ranking, .total-posts	{
+			font-size: inherit;
+			font-weight: bold;
+    	}
+		.info-container	{
+			flex-direction: row;
+			flex-wrap: wrap;
+			align-items: flex-start;
+			width: 100%;
+		}
+		.pfp img	{
+			width: 90px;
+			height: 90px;
+		}
+		.pfp-container	{
+			align-items: flex-start;
+		}
+		.misc-container li, .total-posts-header	{
+			white-space: normal;
+		}
+		.misc-container	{
+			width: 100%;
+		}
+		.header-external-icon	{
+			display: none;
+		}
+		.scratch-link, .ocular-link	{
+			text-decoration: underline;
+		}
+		.total-post-container, .rank-container	{
+			flex-direction: row;
+			justify-content: flex-end;
+		}
+		.posts-container	{
+			flex-direction: row;
+			width: 100%;
+		}
+		header	{
+			top: calc(5em + 8px);
+		}
+    }
+	@media only screen and (max-width: 400px)   {
+		.pfp-container	{
+			display: none;
+		}
+		.post-dist-bar    {
+            width: 100%;
+        }
+		.info-container, .posts-container, .misc-container, .total-post-container, .rank-container	{
+			justify-content: center;
+			text-align: center;
+		}
 	}
 </style>

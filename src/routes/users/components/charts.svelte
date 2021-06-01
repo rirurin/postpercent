@@ -164,26 +164,25 @@
         promise = getData();
     })
 </script>
-
 <ul class="category-header-container">
     <li class="category-header-left">Total Post Count</li>
-    <li class="category-header-right">(monthly, all time)</li>
+    <li class="category-header-right">Monthly, All Time</li>
 </ul>
 <canvas id="totalpostcountmonthly" height=75></canvas>
 <br>
 <ul class="category-header-container">
     <li class="category-header-left">Total Post Count</li>
-    <li class="category-header-right">(weekly, past 12 months)</li>
+    <li class="category-header-right">Weekly, Past 12 Months</li>
 </ul>
 <canvas id="totalpostcountweekly" height=75></canvas>
 <ul class="category-header-container">
     <li class="category-header-left">Posts Per Month</li>
-    <li class="category-header-right">(all time)</li>
+    <li class="category-header-right">All Time</li>
 </ul>
 <canvas id="postspermonth" height=75></canvas>
 <ul class="category-header-container">
     <li class="category-header-left">Posts Per Week</li>
-    <li class="category-header-right">(past 12 months)</li>
+    <li class="category-header-right">Past 12 Months</li>
 </ul>
 <canvas id="postsperweek" height=75></canvas>
 

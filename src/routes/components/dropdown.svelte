@@ -21,6 +21,7 @@
         max-height: 150px;
         position: absolute;
         margin-left: 4%;
+        z-index: 99999;
     }
     li  {
         border-bottom: 1px solid var(--text);
@@ -30,5 +31,16 @@
     }
     li:first-child  {
         border-top: 1px solid var(--text);
+    }
+    @media only screen and (max-width: 720px)   {
+        ul  {
+            width: 100%;
+            margin: 0;
+        }
+    }
+    @media only screen and (max-width: 1200px) and (min-width: 720px)   {
+        ul  {
+            width: 50%;
+        }
     }
 </style>

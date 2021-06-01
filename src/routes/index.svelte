@@ -63,5 +63,13 @@
         user-select: none;
     }
     #wrapper {position: sticky; top: calc(3em + 2px); z-index: 999; width: 100%;}
+    @media only screen and (max-width: 720px)   {
+        #header-forum-category	{
+            font-size: inherit;
+        }
+        #wrapper    {
+            top: calc(5em + 8px);
+        }
+    }
 </style>
 <Graph page={page} category={category}></Graph>

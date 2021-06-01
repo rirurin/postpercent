@@ -36,8 +36,29 @@
         font-family: 'Noto Sans JP', Arial, Helvetica, sans-serif;
     }
     @media only screen and (max-width: 720px)   {
-        nav li:not(:first-child)    {
-            display: none;
+        nav {
+            flex-wrap: wrap;
+        }
+        nav li {
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-end;
+            margin: auto;
+            text-align: center;
+            padding: auto 10%;
+        }
+        #logo   {
+            justify-content: center;
+            margin: auto;
+            width: 100%;
+        }
+    }
+    @media only screen and (max-width: 400px)   {
+        nav  {
+            flex-direction: column;
+        }
+        #logo   {
+            width: auto;
         }
     }
 </style>
