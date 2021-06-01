@@ -8,7 +8,6 @@ import { onMount } from 'svelte';
     let lightText = 0;
     $: if (logoColor != $logoaccentColor)   {
         logoColor = $logoaccentColor
-        console.log(logoColor.length);
         if (logoColor.length == 7)  {
             const contraster = [];
             contraster.push(HEXtoRGB(logoColor).r); contraster.push(HEXtoRGB(logoColor).g); contraster.push(HEXtoRGB(logoColor).b);
