@@ -129,7 +129,7 @@
 		<ul class="misc-container">
 			<li><nobr>View user on:</nobr></li>
 			<li class="scratch-link">
-				<a href="https:/scratch.mit.edu/users/{slug}">scratch <span class="iconify header-external-icon" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>
+				<a href="https://scratch.mit.edu/users/{slug}">scratch <span class="iconify header-external-icon" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>
 			</li>
 			<li class="ocular-link">
 				<a href="https://ocular.jeffalo.net/user/{slug}">ocular <span class="iconify header-external-icon" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>
