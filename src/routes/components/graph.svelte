@@ -25,7 +25,7 @@
     }
     let promise = getData();
     onMount(async() => {
-        promise = getData();
+        // promise = getData();
     })
     $: if ($page != pageCheck)  {
         promise = getData();

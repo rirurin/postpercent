@@ -53,7 +53,7 @@
     }
     let promise = getData();
     onMount(async() => {
-        promise = getData();
+        // promise = getData();
     })
 
 	$: if (username !== slug)	{
