@@ -39,7 +39,7 @@ import { onMount } from 'svelte';
     </ul>
     <ul class="right">
         <li>Other Forum Tools</li>
-        <li><a href="https://ocular.jeffalo.net/">ocular <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
+        <li><a href="https://ocular.jeffalo.net/?utm_campaign=postpercent">ocular <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
 	    <li><a href="https://scratory.vercel.app">scratory <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
     </ul>
 </footer>
