@@ -4,7 +4,7 @@
     let username;
     function keyDown (event)    {
         if (event.keyCode == 13)    {
-            goto(`/users/${username}`)
+            goto(`/users/${username || "CatsUnited"}`)
             searchActive.set(false)
         }
         if (event.keyCode == 27)    {
