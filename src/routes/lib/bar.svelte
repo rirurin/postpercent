@@ -4,13 +4,14 @@
     export let rank;
     export let width;
     export let percentage;
+    export let page;
 
     import { onMount } from 'svelte';
-    import { cat } from '../storage.js';
+    import { cat, activeTheme } from '../storage.js';
     let user;
     let custom;
     let barWidth = 0;
-    let barColor = "#333333";
+    let barColor = "var(--background-hover)";
     let lightText = 0;
 
     function HEXtoRGB (hex) {
@@ -30,13 +31,13 @@
         .then(data => {
             custom = data;
             barColor = custom.color;
-            
+
             if (custom.color)   {
                 const contraster = [];
                 contraster.push(HEXtoRGB(custom.color).r); contraster.push(HEXtoRGB(custom.color).g); contraster.push(HEXtoRGB(custom.color).b);
                 const brightness = Math.round(((parseInt(contraster[0]) * 299) + (parseInt(contraster[1]) * 587) + (parseInt(contraster[2]) * 114)) / 1000);
                 if (brightness > 150)   {  
-                    lightText = 1;
+                    lightText = 1; 
                 }
             }
         })
@@ -50,10 +51,10 @@
 
 
 <div id="container">
-    <ul class="rank">
+    <ul class="rank" style="min-width: calc(2.5em + {Math.floor(Math.log(page + 1))/2}em);">
         <li>{rank}</li>
     </ul>
-    <ul class="bar" style="width: {barWidth}%; background-color: {barColor}; color: {lightText == 1 ? `var(--background)` : `var(--text)`}; transition: width 1s, background-color 1s, color 1s;">
+    <ul class="bar" style="width: {barWidth}%; background-color: {barColor}; color: {lightText == 1 && width > 5 ? `var(--background)` : `var(--text)`}; transition: width 1s, background-color 1s, color 1s;">
         {#if user}
             <!-- svelte-ignore a11y-missing-attribute -->
             <li><a href="/users/{user.username}"><img src="https://cdn2.scratch.mit.edu/get_image/user/{user.id}_90x90.png" style={width > 5 ? "width: 2em; height: 2em;" : "display: none;"}></a></li>
@@ -61,7 +62,7 @@
             <li class="posts">
                 <a href="/users/{user.username}" style="font-weight: bold;">{posts}</a>
                 {#if barWidth > 12 && $cat != "total"}
-                    ({percentage}%)
+                    <span class="percentage">({percentage}%)</span>
                 {/if}
             </li>
         {:else}
@@ -70,7 +71,7 @@
             <li class="posts">
                 <a href="/users/{username}" style="font-weight: bold;">{posts}</a>
                 {#if barWidth > 12 && $cat != "total"}
-                    ({percentage}%)
+                    <span class="percentage">({percentage}%)</span>
                 {/if}
             </li>
         {/if}
@@ -83,7 +84,6 @@
         justify-content: flex-start;
     }
     .rank   {
-        min-width: 3%;
         font-weight: bold;
         margin: 0;
         padding: 0;
@@ -115,5 +115,15 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+    }
+    @media only screen and (max-width: 1200px)   {
+        .percentage {
+            display: none;
+        }
+    }
+    @media only screen and (max-width: 1600px)   {
+        .percentage {
+            font-size: 12px;
+        }
     }
 </style>

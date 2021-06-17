@@ -1,13 +1,13 @@
 <script>
 import { onMount } from 'svelte';
 
-    import { logoaccentColor } from '../storage.js';
-    import { HEXtoRGB } from '../users/components/hextorgb.js';
+    import { highlight } from '../storage.js';
+    import { HEXtoRGB } from './hextorgb.js';
 
     let logoColor = "var(--accent)";
     let lightText = 0;
-    $: if (logoColor != $logoaccentColor)   {
-        logoColor = $logoaccentColor
+    $: if (logoColor != $highlight)   {
+        logoColor = $highlight
         if (logoColor.length == 7)  {
             const contraster = [];
             contraster.push(HEXtoRGB(logoColor).r); contraster.push(HEXtoRGB(logoColor).g); contraster.push(HEXtoRGB(logoColor).b);
@@ -21,21 +21,26 @@ import { onMount } from 'svelte';
     })
 </script>
 
-<footer style="background-color: {logoColor}; color: {lightText == 1 ? `var(--background)`: `var(--text)`}">
+<footer style="background-color: {$highlight}; color: {lightText == 1 ? `#1c1c1c`: `#ffffff`}">
     <ul>
-        <li>Credits</li>
-        <li>By CatsUnited</li>
-	    <li>Data from DatOneLefty and Jeffalo</li>
+        <li>Contributors</li>
+        <li>CatsUnited</li>
+	    <li>9gr</li>
     </ul>
     <ul>
+        <li>Data Used</li>
+        <li>my-ocular API (Jeffalo)</li>
+	    <li>ScratchDB (DatOneLefty)</li>
+    </ul>
+    <ul class="right">
         <li>Discuss</li>
         <li><a href="https://scratch.mit.edu/discuss/topic/424580/">Forum Topic <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
         <li><a href="https://github.com/rirurin/postpercent">Source Code <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
     </ul>
-    <ul>
+    <ul class="right">
         <li>Other Forum Tools</li>
-        <li><a href="https://ocular.jeffalo.net/">Ocular <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
-	    <li><a href="https://signature-history.9gr.repl.co">9gr's signature viewer <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
+        <li><a href="https://ocular.jeffalo.net/">ocular <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
+	    <li><a href="https://scratory.vercel.app">scratory <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
     </ul>
 </footer>
 <style>
@@ -55,5 +60,8 @@ import { onMount } from 'svelte';
     }
     footer li:first-child   {
         font-weight: bold;
+    }
+    .right  {
+        text-align: right;
     }
 </style>

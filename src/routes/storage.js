@@ -1,8 +1,23 @@
 import { writable } from 'svelte/store';
+// in app storage
 export const page = writable(0);
 export const cat = writable("total");
 export const dropdownActive = writable(false);
-export const logoaccentColor = writable("var(--accent)");
+export const dialogActive = writable(false);
+export const highlight = writable("var(--accent)");
+export const searchActive = writable(false);
+
+// persistent storage
+export const name = writable("postpercent");
+export const activeTheme = writable("system");
+
+// lists
+export const themes = [
+  "system",
+  "dark",
+  "light",
+  "jeffalo"
+]
 
 export const categories = [
     ["0", "total"],

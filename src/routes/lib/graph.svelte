@@ -40,7 +40,7 @@
     {#await promise}
         <title>Loading leaderboards for {$cat}</title>
     {:then} 
-        <title>{$cat} - postpercent</title>
+        <title>{$cat == "total" ? "All Categories" : $cat} - postpercent</title>
     {:catch}
         <title>Looks like something happened...</title>
     {/await}
@@ -56,7 +56,7 @@
     {/each}
     -->
     {#each users as {username, counts}, i }
-        <Bar username={username} posts={counts[category].count} rank={i+1 + $page*100} width={counts[category].count / users[0].counts[category].count * 97} percentage={Math.round(counts[category].count / counts.total.count * 10000) / 100} />
+        <Bar username={username} posts={counts[category].count} rank={i+1 + $page*100} width={counts[category].count / users[0].counts[category].count * 97} percentage={Math.round(counts[category].count / counts.total.count * 10000) / 100} page={$page} />
     {/each}
 {:catch}
     <p>how did you find page {$page + 1} are you hacking</p>

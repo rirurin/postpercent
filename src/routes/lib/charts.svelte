@@ -52,7 +52,7 @@
                     postgraph2.push(precise[i].value - precise[i-1].value)
                 }
 			}
-			postoffset = postgraph[postgraph.length - 12];
+			postgraph.length > 11 ? postoffset = postgraph[postgraph.length - 12] : postoffset = 0;
 			var chart = new Chart(ctx, {
 			type: "line",
 			data: {
@@ -185,11 +185,12 @@
 		ctx = document.getElementById("totalpostcountmonthly").getContext("2d");
 		ctx2 = document.getElementById("totalpostcountweekly").getContext("2d");
 
-        ctx3 = document.getElementById("postspermonth").getContext("2d");
+		ctx3 = document.getElementById("postspermonth").getContext("2d");
 		ctx4 = document.getElementById("postsperweek").getContext("2d");
 
 		ctx5 = document.getElementById("postdistribution").getContext("2d");
-        promise = getData();
+		
+		promise = getData();
     })
 </script>
 <ul class="category-header-container">

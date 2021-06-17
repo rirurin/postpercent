@@ -1,9 +1,10 @@
 <script>
-    import { page, cat, dropdownActive, categories, logoaccentColor } from './storage.js';
-    import Graph from './components/graph.svelte';
-    import Dropdown from './components/dropdown.svelte';
+    import { page, cat, dropdownActive, categories, highlight } from './storage.js';
+    import Graph from './lib/graph.svelte';
+    import Dropdown from './lib/dropdown.svelte';
+    import Header from './lib/header.svelte';
 
-    logoaccentColor.set("var(--accent)");
+    highlight.set("var(--accent)");
     
     function nextPage()  { page.update(n => n + 1);}
     function prevPage()  { $page == 0 ? page.set(0) : page.update(n => n - 1);}
@@ -12,27 +13,29 @@
     let category = $cat;
     $: category = $cat;
 </script>
-<div id="wrapper">
-    <header>
-        <ul>
-            <!--<li id="header-forum-category">All Categories</li>-->
-            <li id="header-forum-category" on:click={toggleDropdown}>{category == "total" ? "All Categories" : category} <nobr><span class="iconify" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span></nobr></li>
-            <li id="header-forum-usercount"><nobr>Page {$page + 1}</nobr></li>
-            
-        </ul>
-        <ul id="graph-navigation">
-            <li on:click={prevPage}><span class="iconify" data-icon="topcoat:back" data-inline="false" alt="Previous Page">Previous Page</span></li>
-            <li on:click={searPage}><span class="iconify" data-icon="topcoat:search" data-inline="false" alt="Go to Page">Go to Page</span></li>
-            <li on:click={nextPage}><span class="iconify" data-icon="topcoat:next" data-inline="false" alt="Next Page">Next Page</span></li>
-           
-        </ul>
-    </header>
-    <Dropdown options={categories.map(x => x[1])}></Dropdown>
-</div>
+<Header>
+    <div id="wrapper">
+        <header>
+            <ul>
+                <!--<li id="header-forum-category">All Categories</li>-->
+                <li id="header-forum-category" on:click={toggleDropdown}>{category == "total" ? "All Categories" : category} <nobr><span class="iconify" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span></nobr></li>
+                <li id="header-forum-usercount"><nobr>Page {$page + 1}</nobr></li>
+                
+            </ul>
+            <ul id="graph-navigation">
+                <li on:click={prevPage}><span class="iconify" data-icon="topcoat:back" data-inline="false" alt="Previous Page">Previous Page</span></li>
+                <li on:click={searPage}><span class="iconify" data-icon="topcoat:search" data-inline="false" alt="Go to Page">Go to Page</span></li>
+                <li on:click={nextPage}><span class="iconify" data-icon="topcoat:next" data-inline="false" alt="Next Page">Next Page</span></li>
+               
+            </ul>
+        </header>
+        <Dropdown options={categories.map(x => x[1])} type="leaderboard"></Dropdown>
+    </div>
+</Header>
+
 
 <style>
     header	{
-        background-color: var(--accent);
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -64,7 +67,7 @@
         font-weight: bold;
         user-select: none;
     }
-    #wrapper {position: sticky; top: calc(3em + 2px); z-index: 999; width: 100%;}
+    #wrapper {position: sticky; top: calc(3em + 2px); z-index: 996; width: 100%;}
     @media only screen and (max-width: 720px)   {
         #header-forum-category	{
             font-size: inherit;
@@ -74,4 +77,5 @@
         }
     }
 </style>
+
 <Graph page={page} category={category}></Graph>

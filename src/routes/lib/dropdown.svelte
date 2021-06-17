@@ -1,8 +1,14 @@
 <script>
     export let options;
-    import { cat, dropdownActive } from '../storage.js';
+    export let type;
+    import { activeTheme, cat, dropdownActive } from '../storage.js';
     function changeCategory (category)  {
-        cat.set(category);
+        if (type == "leaderboard")  {
+            cat.set(category);
+        }
+        if (type == "theme")    {
+            activeTheme.set(category)
+        }
         dropdownActive.set(false)
     }
 
@@ -20,8 +26,8 @@
         padding: 10px 5px;
         max-height: 150px;
         position: absolute;
-        margin-left: 4%;
-        z-index: 99999;
+        margin-left: calc(4% + 10px);
+        z-index: 996;
     }
     li  {
         border-bottom: 1px solid var(--text);
