@@ -14,7 +14,13 @@
 
     async function getData()    {
         await fetch(`https://scratchdb.lefty.one/v3/forum/category/rank/${category}/${$page}`)
-        .then(res => res.json())
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            } else {
+                throw new Error('Something went wrong');
+            }
+        })
         .then(data => {
             users = data;
             graphGap = 1;
@@ -59,9 +65,8 @@
         <Bar username={username} posts={counts[category].count} rank={i+1 + $page*100} width={counts[category].count / users[0].counts[category].count * 97} percentage={Math.round(counts[category].count / counts.total.count * 10000) / 100} page={$page} />
     {/each}
 {:catch}
-    <p>how did you find page {$page + 1} are you hacking</p>
-    <!-- svelte-ignore a11y-missing-attribute -->
-    <img src="https://media1.tenor.com/images/a7e1806acb87623ea0d4fda7bcfb4306/tenor.gif">
+    <p>how did you find page {$page + 1} of {$cat == "total" ? "All Categories" : $cat} are you hacking</p>
+    <img src="https://media1.tenor.com/images/a7e1806acb87623ea0d4fda7bcfb4306/tenor.gif" alt="what happens to my bed when I get a winstreak">
 {/await}
 </main>
 <style>

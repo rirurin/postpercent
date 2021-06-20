@@ -27,7 +27,7 @@ function toggleSearch() {$searchActive ? searchActive.set(false) : searchActive.
             {$name} <span style="color: {$highlight}; transition: color 1s;">beta</span>
         </li>
         <li class="link"><a href="../">Leaderboards</a></li>
-        <li class="link"><a on:click={toggleSearch}>Users</a></li>
+        <li class="link" on:click={toggleSearch}>Users</li>
         <li class="link" on:click={toggleDialog}>Settings</li>
         <li class="search"><Search></Search></li>
     </nav>
@@ -62,6 +62,9 @@ function toggleSearch() {$searchActive ? searchActive.set(false) : searchActive.
     #logo {
         font-family: 'Noto Sans JP', Arial, Helvetica, sans-serif;
         white-space: nowrap;
+    }
+    .link:hover {
+        cursor: pointer;
     }
     @media only screen and (max-width: 720px)   {
         nav {

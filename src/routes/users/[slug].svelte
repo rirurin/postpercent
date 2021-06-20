@@ -6,7 +6,7 @@
 </script>
 <script>
 	import { onMount } from 'svelte';
-	import { cat, highlight } from '../storage.js';
+	import { activeTheme, cat, highlight } from '../storage.js';
 	import { HEXtoRGB } from '../lib/hextorgb.js';
 	import { rankifier } from '../lib/rankifier.js';
 	import { HSVtoRGB } from '../lib/hsvtorgb.js';
@@ -21,6 +21,8 @@
 	let monthList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	let lightText = 0;
 	let pieColors = [];
+	let pieColorsLight = [];
+	let pieColorsDark = [];
 
 	async function getData()    {
 		await fetch(`https://scratchdb.lefty.one/v3/user/info/${slug}`)
@@ -28,6 +30,9 @@
         .then(data => {
             user = data;
         })
+		.catch(error => {
+			console.error(error)
+		})
         await fetch(`https://scratchdb.lefty.one/v3/forum/user/info/${slug}/`)
         .then(res => res.json())
         .then(data => {
@@ -36,10 +41,14 @@
 				forum = {"counts":{"total":{"count":0,"rank":0}}, "firstSeen":{"date":"2000-01-01T00:00:00.000Z","id":0},"lastSeen":{"date":"2000-01-01T00:00:00.000Z","id":0}}
 			} else	{
 				for (let i = 1; i < Object.keys(forum.counts).length - 1; i++)	{
-					pieColors.push(`rgb(${Math.random()*100},${Math.random()*100},${Math.random()*100})`)
+					pieColorsDark.push(`rgb(${Math.random()*100},${Math.random()*100},${Math.random()*100})`)
+					pieColorsLight.push(`rgb(${255 - Math.random()*100},${255 - Math.random()*100},${255 - Math.random()*100})`)
 				}
 			}
         })
+		.catch(error => {
+			console.error(error)
+		})
 		await fetch(`https://my-ocular.jeffalo.net/api/user/${slug}`)
         .then(res => res.json())
         .then(data => {
@@ -54,6 +63,9 @@
 				highlight.set(`var(--accent)`);
 			}
         })
+		.catch(error => {
+			console.error(error)
+		})
     }
     let promise = getData();
     onMount(async() => {
@@ -64,13 +76,19 @@
 		username = slug;
 		promise = getData();
 	}
+
+	$: if ($activeTheme == "light" || $activeTheme == "jeffalo")	{
+		pieColors = pieColorsLight
+	} else	{
+		pieColors = pieColorsDark
+	}
 </script>
 
 <svelte:head>
 	{#await promise}
 	<title>Loading user {slug}</title> 
 	{:then} 
-	<title>{slug} - postpercent</title>
+	<title>{user.username} - postpercent</title>
 	{:catch}
 	<title>Error loading user {slug}</title>
 	{/await}
@@ -136,7 +154,7 @@
 					<a href="https://scratch.mit.edu/users/{slug}">scratch <span class="iconify header-external-icon" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>
 				</li>
 				<li class="ocular-link">
-					<a href="https://ocular.jeffalo.net/user/{slug}">ocular <span class="iconify header-external-icon" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>
+					<a href="https://ocular.jeffalo.net/user/{slug}?utm_campaign=postpercent">ocular <span class="iconify header-external-icon" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>
 				</li>
 			</ul>
 		</ul>
@@ -158,30 +176,50 @@
 		{/if}
 	</li>
 </header>
-<div id="compensator"></div>
+<div id="compensator">
+</div>
 <main>
 	{#await promise}
-	<img src="/loading.gif" alt="Loading" class="loading" style="filter: brightness(100)">
+	<img src="/loading.gif" alt="Loading" class="loading" style="filter: {$activeTheme == "light" || $activeTheme == "jeffalo" ? `brightness(-100)` : `brightness(100)`}">
 	{:then}
-	<div class="post-dist-container">
-		{#each Object.entries(forum.counts) as i, j}
-			{#if i[0] != `total`}
-				<div class="post-dist-bar" style="background-color: {pieColors[j - 1]}; order: {i[1].count * -1}">
-					<li><a href="../" on:click={cat.set(i[0])}>{i[0]}</a></li>
-					<ul>
-						<li>{i[1].count}</li>
-						<li>{rankifier(i[1].rank)}</li>
-						<li>{Math.round(i[1].count / forum.counts.total.count * 10000)/100}%</li>
-					</ul>
-				</div>
-			{/if}
-		{/each}
+	{#if forum.counts.total.count > 0}
+		<div class="post-dist-container">
+			{#each Object.entries(forum.counts) as i, j}
+				{#if i[0] != `total`}
+					<div class="post-dist-bar" style="background-color: {pieColors[j - 1]}; order: {i[1].count * -1}">
+						<li><a href="../" on:click={cat.set(i[0])}>{i[0]}</a></li>
+						<ul>
+							<li>{i[1].count}</li>
+							<li>{rankifier(i[1].rank)}</li>
+							<li>{Math.round(i[1].count / forum.counts.total.count * 10000)/100}%</li>
+						</ul>
+					</div>
+				{/if}
+			{/each}
+		</div>
+		<br>
+		<Charts username={slug} color={custom.color ? custom.color : `#f54260`} colors={pieColors}></Charts>
+	{:else}
+	<div class="no-post-notice">
+		bruh <br> {slug} has made no forum posts
+		{#if user.username == "SuperCoolProjects"}
+			because they are busy making fun projects every day for the community to enjoy! :)
+		{/if}
 	</div>
-	<br>
-	<Charts username={slug} color={custom.color ? custom.color : `#f54260`} colors={pieColors}></Charts>
+	{/if}
+	<div class="bottom-funny">
+		{#if user.username == "DatOneLefty"}
+			<img src="https://shefwerld.rirurin.com/post/linus.jpg" alt="Linus from LinusTechTips">
+		{/if}
+		{#if user.username == "SausageMcSauce"}
+			<img src="https://shefwerld.rirurin.com/shefmart/products/src/toothpaste.jpg" alt="TOOTHPASTE">
+		{/if}
+		{#if user.username == "Jeffalo"}
+			&#60;script&#62;alert("gotem")&#60;/script&#62;
+		{/if}
+	</div>
 	{:catch}
-	bruh<br>
-	no posts
+	postpercent brokey
 	{/await}
 	<br>
 </main>
@@ -196,7 +234,7 @@
 	header ul	{
         display: flex;
         flex-direction: row;
-        width: 50%;
+        width: 60%;
         padding: 0;
         align-items: flex-end;
     }
@@ -223,7 +261,7 @@
 		flex-direction: column;
 	}
 
-	.username, .sticky-username, .ranking, .total-posts	{
+	.username, .sticky-username, .ranking, .total-posts, .no-post-notice	{
         font-size: 32px;
         font-weight: bold;
     }

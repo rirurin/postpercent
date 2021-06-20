@@ -4,19 +4,27 @@
     let username;
     function keyDown (event)    {
         if (event.keyCode == 13)    {
-            goto(`/users/${username || "CatsUnited"}`)
-            searchActive.set(false)
+            search()
         }
         if (event.keyCode == 27)    {
-            searchActive.set(false)
+            cancel()
         }
     }
+
+    function search ()  {
+        goto(`/users/${username || "CatsUnited"}`);
+        searchActive.set(false);
+    }
+    function cancel ()  {searchActive.set(false) }
 
     $: hoverColor = `--hoverColor:${$highlight};`
 </script>
 <ul>
+    <!-- svelte-ignore a11y-missing-attribute -->
+    <li class="back" style={hoverColor}><a on:click={cancel}>Back</a></li>
     <li class="search"><input placeholder="Type a Scratch username..." bind:value={username}></li>
-    <li class="submit" style={hoverColor}><a href="/users/{username}" on:click={searchActive.set(false)}>Search User</a></li>
+    <!-- svelte-ignore a11y-missing-attribute -->
+    <li class="submit" style={hoverColor}><a on:click={search}>Search User</a></li>
 </ul>
 <svelte:window on:keydown={keyDown}></svelte:window>
 <style>
@@ -40,26 +48,29 @@
         transition: background-color 0.25s;
         color: var(--text);
         height: 1.9em;
+        padding: 0 5px;
     }
     input:focus {
         background-color: var(--background-hover);
     }
     .search {
         width: 100%;
-        height: 2em;
+        height: 1.9em;
     }
-    .submit {
+    .submit, .back {
         background-color: var(--background-hover);
-        width: 20%;
-        height: 2em;
+        height: 1.9em;
         display: flex;
         align-items: center;
         transition: background-color 0.25s;
+        padding: 0 5px;
+        cursor: pointer;
     }
-    .submit:hover {
+    .submit:hover, .back:hover {
         background-color: var(--hoverColor);
         transition: background-color 0.25s;
     }
+    .submit { width: 20%; } .back { width: 10%; }
     a   {
         width: 100%;
     }

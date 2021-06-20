@@ -39,7 +39,7 @@ import { onMount } from 'svelte';
     </ul>
     <ul class="right">
         <li>Other Forum Tools</li>
-        <li><a href="https://ocular.jeffalo.net/">ocular <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
+        <li><a href="https://ocular.jeffalo.net/?utm_campaign=postpercent">ocular <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
 	    <li><a href="https://scratory.vercel.app">scratory <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
     </ul>
 </footer>
@@ -63,5 +63,15 @@ import { onMount } from 'svelte';
     }
     .right  {
         text-align: right;
+    }
+    @media only screen and (max-width: 720px)   { 
+        footer  {
+            flex-direction: column;
+        }
+        footer ul, .right   {
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+        }
     }
 </style>

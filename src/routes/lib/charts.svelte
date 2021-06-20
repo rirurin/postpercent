@@ -36,6 +36,9 @@
 				},
 			});
         })
+		.catch(error => {
+			console.error(error)
+		})
 		await fetch(`https://scratchdb.lefty.one/v3/forum/user/graph/${username}/total?segment=month&range=3650`)
 		.then(res => res.json())
         .then(data => {
@@ -108,6 +111,9 @@
 			}
 			});
         })
+		.catch(error => {
+			console.error(error)
+		})
 		await fetch(`https://scratchdb.lefty.one/v3/forum/user/graph/${username}/total?segment=6&range=365`)
 		.then(res => res.json())
         .then(data => {
@@ -179,6 +185,9 @@
 			}
 			});
         })
+		.catch(error => {
+			console.error(error)
+		})
     }
     let promise = getData();
     onMount(async() => {
@@ -246,4 +255,5 @@
         font-size: 32px;
         font-weight: bold;
     }
+	
 </style>

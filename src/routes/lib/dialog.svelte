@@ -67,8 +67,8 @@
         justify-content: center;
         list-style: none;
         top: 25%;
-        left: 37.5%;
-        width: 25%;
+        left: 25%;
+        width: 50%;
         background-color: var(--background);
         transition: background-color 1s;
         opacity: 1;
@@ -89,12 +89,6 @@
     }
     .dialog-top {
         margin-bottom: 15px;
-    }
-    @media only screen and (max-width: 1200px)   {
-        .dialog {
-            width: 50%;
-            left: 25%;
-        }
     }
     @media only screen and (max-width: 720px)   {
         .dialog {
