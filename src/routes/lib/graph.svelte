@@ -28,6 +28,11 @@
             axisInterval = Math.round(users[0].counts[category].count / graphGap);
             axisAdjust = ((graphGap * axisInterval) / users[0].counts[category].count);
         })
+        .catch(error => {
+            console.error(error);
+            throw new Error('Something went wrong');
+        })
+        
     }
     let promise = getData();
     onMount(async() => {
@@ -74,3 +79,11 @@
         padding: 10px calc(4% + 10px);
     }
 </style>
+
+<!--
+
+    .catch(error => {
+            console.error(error);
+            throw new Error('Something went wrong');
+        })
+-->

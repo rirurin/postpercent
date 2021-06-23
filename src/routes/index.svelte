@@ -17,7 +17,6 @@
     <div id="wrapper">
         <header>
             <ul>
-                <!--<li id="header-forum-category">All Categories</li>-->
                 <li id="header-forum-category" on:click={toggleDropdown}>{category == "total" ? "All Categories" : category} <nobr><span class="iconify" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span></nobr></li>
                 <li id="header-forum-usercount"><nobr>Page {$page + 1}</nobr></li>
                 

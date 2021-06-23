@@ -26,13 +26,16 @@
             user = data;
             barWidth = width;
         })
+        .catch(error => {
+            console.log(error);
+        })
         await fetch(`https://my-ocular.jeffalo.net/api/user/${username}`)
         .then(res => res.json())
         .then(data => {
             custom = data;
             barColor = custom.color;
 
-            if (custom.color)   {
+            if (custom.color && custom.color.length == 7)   {
                 const contraster = [];
                 contraster.push(HEXtoRGB(custom.color).r); contraster.push(HEXtoRGB(custom.color).g); contraster.push(HEXtoRGB(custom.color).b);
                 const brightness = Math.round(((parseInt(contraster[0]) * 299) + (parseInt(contraster[1]) * 587) + (parseInt(contraster[2]) * 114)) / 1000);
@@ -40,6 +43,9 @@
                     lightText = 1; 
                 }
             }
+        })
+        .catch(error => {
+            console.log(error);
         })
     }
     let promise = getData();

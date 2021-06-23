@@ -23,6 +23,7 @@
         logoColor = "var(--accent)";
         lightText = 0;
     })
+    $: hoverColor = `--hoverColor:${$highlight};`
 </script>
 
 <div id="overlay" style={$dialogActive ? "display: flex;" : "display: none;"}>
@@ -30,16 +31,16 @@
 <ul class="dialog" style={$dialogActive ? `display: flex;` : `display: none;`}>
     <ul class="dialog-top" style="background-color: {logoColor}; color: {lightText == 1 ? `var(--background)`: `var(--text)`}; transition: background-color 1s;">
         <li>postpercent settings</li>
-        <li on:click={toggleDialog}>Close</li>
+        <li class="button" on:click={toggleDialog} style={hoverColor}>Close</li>
     </ul>
     <ul>
         <li>Change Theme</li>
-        <li on:click={toggleDropdown}>{$activeTheme}</li>
+        <li class="button" on:click={toggleDropdown} style={hoverColor}>{$activeTheme}</li>
         <Dropdown type="theme" options={themes}></Dropdown>
     </ul>
     <ul>
         <li style="font-family: Comic Sans MS">Shefwerld is a better name</li>
-        <li on:click={toggleName}>
+        <li class="button" on:click={toggleName} style={hoverColor}>
             {#if $name == "postpercent"}
                 No
             {:else}
@@ -67,7 +68,7 @@
         justify-content: center;
         list-style: none;
         top: 25%;
-        left: 25%;
+        left: calc(25% - 2.5px);
         width: 50%;
         background-color: var(--background);
         transition: background-color 1s;
@@ -77,6 +78,7 @@
     }
     ul  {
         display: flex;
+        align-items: center;
         flex-direction: row;
         list-style: none;
         text-decoration: none;
@@ -84,16 +86,23 @@
         padding: 0;
         width: 100%;
         justify-content: space-between;
-        padding-bottom: 10px;
-        padding-top: 5px;
+        padding: 5px 5px;
     }
     .dialog-top {
         margin-bottom: 15px;
     }
     @media only screen and (max-width: 720px)   {
         .dialog {
-            width: calc(100% - 4em - 10px);
+            width: calc(100% - 4em - 20px);
             left: calc(2em + 5px);
         }
+    }
+    .button {
+        background-color: var(--background-hover);
+        padding: 5px 5px;
+    }
+    .button:hover {
+        background-color: var(--hoverColor);
+        transition: background-color 0.25s;
     }
 </style>

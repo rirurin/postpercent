@@ -53,7 +53,7 @@
         .then(res => res.json())
         .then(data => {
             custom = data;
-			if (custom.color)   {
+			if (custom.color && custom.color.length == 7)   {
 				highlight.set(custom.color);
                 const contraster = [];
                 contraster.push(HEXtoRGB(custom.color).r); contraster.push(HEXtoRGB(custom.color).g); contraster.push(HEXtoRGB(custom.color).b);
