@@ -30,7 +30,7 @@
         })
         .catch(error => {
             console.error(error);
-            throw new Error('Something went wrong');
+            throw new Error('Something went wrong D:');
         })
         
     }

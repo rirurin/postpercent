@@ -27,7 +27,8 @@
             barWidth = width;
         })
         .catch(error => {
-            console.log(error);
+            console.error(error);
+            throw new Error('Something went wrong D:');
         })
         await fetch(`https://my-ocular.jeffalo.net/api/user/${username}`)
         .then(res => res.json())
@@ -45,7 +46,8 @@
             }
         })
         .catch(error => {
-            console.log(error);
+            console.error(error);
+            throw new Error('Something went wrong D:');
         })
     }
     let promise = getData();

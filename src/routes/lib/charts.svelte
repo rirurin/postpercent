@@ -37,8 +37,9 @@
 			});
         })
 		.catch(error => {
-			console.error(error)
-		})
+            console.error(error);
+            throw new Error('Something went wrong D:');
+        })
 		await fetch(`https://scratchdb.lefty.one/v3/forum/user/graph/${username}/total?segment=month&range=3650`)
 		.then(res => res.json())
         .then(data => {
@@ -112,8 +113,9 @@
 			});
         })
 		.catch(error => {
-			console.error(error)
-		})
+            console.error(error);
+            throw new Error('Something went wrong D:');
+        })
 		await fetch(`https://scratchdb.lefty.one/v3/forum/user/graph/${username}/total?segment=6&range=365`)
 		.then(res => res.json())
         .then(data => {
@@ -186,8 +188,9 @@
 			});
         })
 		.catch(error => {
-			console.error(error)
-		})
+            console.error(error);
+            throw new Error('Something went wrong D:');
+        })
     }
     let promise = getData();
     onMount(async() => {

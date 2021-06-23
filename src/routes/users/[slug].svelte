@@ -31,8 +31,9 @@
             user = data;
         })
 		.catch(error => {
-			console.error(error)
-		})
+            console.error(error);
+            throw new Error('Something went wrong D:');
+        })
         await fetch(`https://scratchdb.lefty.one/v3/forum/user/info/${slug}/`)
         .then(res => res.json())
         .then(data => {
@@ -47,8 +48,9 @@
 			}
         })
 		.catch(error => {
-			console.error(error)
-		})
+            console.error(error);
+            throw new Error('Something went wrong D:');
+        })
 		await fetch(`https://my-ocular.jeffalo.net/api/user/${slug}`)
         .then(res => res.json())
         .then(data => {
@@ -64,8 +66,9 @@
 			}
         })
 		.catch(error => {
-			console.error(error)
-		})
+            console.error(error);
+            throw new Error('Something went wrong D:');
+        })
     }
     let promise = getData();
     onMount(async() => {
