@@ -1,23 +1,34 @@
 <script>
     export let options;
     export let type;
-    import { activeTheme, cat, dropdownActive } from '../storage.js';
+    import { theme, cat, categoryDropdownActive, themeDropdownActive, page } from '../storage.js';
     function changeCategory (category)  {
         if (type == "leaderboard")  {
             cat.set(category);
+            page.set(0)
         }
         if (type == "theme")    {
-            activeTheme.set(category)
+            theme.set(category)
         }
-        dropdownActive.set(false)
+        categoryDropdownActive.set(false)
+        themeDropdownActive.set(false)
     }
 
 </script>
-<ul style={$dropdownActive ? "display: flex; overflow-y: scroll;" : "display: none; overflow-y: hidden;"}>
+{#if type == "leaderboard"}
+<ul style={$categoryDropdownActive ? "display: flex; overflow-y: scroll;" : "display: none; overflow-y: hidden;"}>
     {#each options as i}
         <li on:click={() => changeCategory(i)}>{i == "total" ? "All Categories" : i}</li>
     {/each}
 </ul>
+{:else}
+<ul style={$themeDropdownActive ? "display: flex; overflow-y: scroll;" : "display: none; overflow-y: hidden;"}>
+    {#each options as i}
+        <li on:click={() => changeCategory(i)}>{i == "total" ? "All Categories" : i}</li>
+    {/each}
+</ul>
+{/if}
+
 <style>
     ul  {
         background-color: var(--accent);

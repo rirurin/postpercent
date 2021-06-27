@@ -2,14 +2,16 @@ import { writable } from 'svelte/store';
 // in app storage
 export const page = writable(0);
 export const cat = writable("total");
-export const dropdownActive = writable(false);
 export const dialogActive = writable(false);
+export const categoryDropdownActive = writable(false);
+export const themeDropdownActive = writable(false);
+export const pageSearchActive = writable(false);
 export const highlight = writable("var(--accent)");
 export const searchActive = writable(false);
 
 // persistent storage
 export const name = writable("postpercent");
-export const activeTheme = writable("system");
+export const theme = writable("system");
 
 // lists
 export const themes = [
@@ -27,7 +29,7 @@ export const categories = [
     ["4", "Questions about Scratch"],
     ["5", "Announcements"],
     ["6", "New Scratchers"],
-    ["7", "Help With Scripts"],
+    ["7", "Help with Scripts"],
     ["8", "Show and Tell"],
     ["9", "Project Ideas"],
     ["10", "Collaboration"],

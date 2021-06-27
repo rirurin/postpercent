@@ -1,17 +1,25 @@
 <script>
-    import { page, cat, dropdownActive, categories, highlight } from './storage.js';
+    import { page, cat, categoryDropdownActive, categories, highlight, pageSearchActive } from './storage.js';
     import Graph from './lib/graph.svelte';
     import Dropdown from './lib/dropdown.svelte';
     import Header from './lib/header.svelte';
+    import PageSearch from './lib/pagesearch.svelte';
 
     highlight.set("var(--accent)");
+    pageSearchActive.set(false);
     
     function nextPage()  { page.update(n => n + 1);}
     function prevPage()  { $page == 0 ? page.set(0) : page.update(n => n - 1);}
-    function searPage()  {const pageInput = parseInt(prompt("Search for a page"), 10); /^[0-9.,]+$/.test(pageInput) ? page.set(pageInput - 1) : alert("Not a number :(((((")}
-    function toggleDropdown() {$dropdownActive ? dropdownActive.set(false) : dropdownActive.set(true)}
+    function searPage()  {$pageSearchActive ? pageSearchActive.set(false) : pageSearchActive.set(true)}
+    function toggleDropdown() {$categoryDropdownActive ? categoryDropdownActive.set(false) : categoryDropdownActive.set(true)}
     let category = $cat;
+    let categoryID = 0;
     $: category = $cat;
+    for (let i in categories)   {
+        if (categories[i][1] == category)   {
+            categoryID = categories[i][0]
+        }
+    }
 </script>
 <Header>
     <div id="wrapper">
@@ -22,6 +30,7 @@
                 
             </ul>
             <ul id="graph-navigation">
+                <li><a href="/forum/{categoryID}/{$page + 1}"><span class="iconify" data-icon="topcoat:attachment" data-inline="false"></span></a></li>
                 <li on:click={prevPage}><span class="iconify" data-icon="topcoat:back" data-inline="false" alt="Previous Page">Previous Page</span></li>
                 <li on:click={searPage}><span class="iconify" data-icon="topcoat:search" data-inline="false" alt="Go to Page">Go to Page</span></li>
                 <li on:click={nextPage}><span class="iconify" data-icon="topcoat:next" data-inline="false" alt="Next Page">Next Page</span></li>
@@ -29,10 +38,9 @@
             </ul>
         </header>
         <Dropdown options={categories.map(x => x[1])} type="leaderboard"></Dropdown>
+        <PageSearch></PageSearch>
     </div>
 </Header>
-
-
 <style>
     header	{
         display: flex;
@@ -75,6 +83,29 @@
             top: calc(5em + 8px);
         }
     }
+    .page-link:hover    {
+        cursor: pointer;
+    }
 </style>
 
 <Graph page={page} category={category}></Graph>
+
+{#if $pageSearchActive == true}
+    <style>
+        .page-link  {
+            display: none;
+        }
+        .page-search {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+{/if}
+{#if $pageSearchActive == false}
+    <style>
+        .page-search {
+            display: none;
+        }
+    </style>
+{/if}

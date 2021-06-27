@@ -6,7 +6,7 @@
 </script>
 <script>
 	import { onMount } from 'svelte';
-	import { activeTheme, cat, highlight } from '../storage.js';
+	import { theme, cat, highlight } from '../storage.js';
 	import { HEXtoRGB } from '../lib/hextorgb.js';
 	import { rankifier } from '../lib/rankifier.js';
 	import { HSVtoRGB } from '../lib/hsvtorgb.js';
@@ -80,7 +80,7 @@
 		promise = getData();
 	}
 
-	$: if ($activeTheme == "light" || $activeTheme == "jeffalo")	{
+	$: if ($theme == "light" || $theme == "jeffalo")	{
 		pieColors = pieColorsLight
 	} else	{
 		pieColors = pieColorsDark
@@ -179,11 +179,22 @@
 		{/if}
 	</li>
 </header>
-<div id="compensator">
-</div>
 <main>
+	<span style="opacity: 0; user-select: none; width: 50%; display: flex;">
+		{#if custom}
+			{#if custom.error == "no user found"}
+				No Ocular status found
+			{:else}
+				{custom.status}
+			{/if}
+		{:else}
+			Getting status...
+		{/if}
+	</span>
+	<div id="compensator">
+	</div>
 	{#await promise}
-	<img src="/loading.gif" alt="Loading" class="loading" style="filter: {$activeTheme == "light" || $activeTheme == "jeffalo" ? `brightness(-100)` : `brightness(100)`}">
+	<img src="/loading.gif" alt="Loading" class="loading" style="filter: {$theme == "light" || $theme == "jeffalo" ? `brightness(-100)` : `brightness(100)`}">
 	{:then}
 	{#if forum.counts.total.count > 0}
 		<div class="post-dist-container">

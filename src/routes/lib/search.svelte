@@ -3,11 +3,13 @@
     import { highlight, searchActive } from "../storage.js";
     let username;
     function keyDown (event)    {
-        if (event.keyCode == 13)    {
-            search()
-        }
-        if (event.keyCode == 27)    {
-            cancel()
+        if ($searchActive == true)  {
+            if (event.keyCode == 13)    {
+                search()
+            }
+            if (event.keyCode == 27)    {
+                cancel()
+            }
         }
     }
 

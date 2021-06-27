@@ -22,8 +22,6 @@
                 urlPage = category.substring(i + 1, category.length);
                 category = category.substring(0, i);
                 $page = urlPage - 1;
-                console.log(category);
-                console.log($page);
                 break;
             }
         }

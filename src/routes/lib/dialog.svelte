@@ -1,12 +1,12 @@
 <script>
-    import { highlight, dialogActive, name, activeTheme, themes, dropdownActive } from '../storage.js';
+    import { highlight, dialogActive, name, theme, themes, themeDropdownActive } from '../storage.js';
     import { onMount } from 'svelte';
     import { HEXtoRGB } from './hextorgb.js';
     import Dropdown from './dropdown.svelte';
 
     function toggleDialog() {$dialogActive ? dialogActive.set(false) : dialogActive.set(true)}
     function toggleName() {$name == "postpercent" ? name.set("shefwerld") : name.set("postpercent")}
-    function toggleDropdown() {$dropdownActive ? dropdownActive.set(false) : dropdownActive.set(true)}
+    function toggleDropdown() {$themeDropdownActive ? themeDropdownActive.set(false) : themeDropdownActive.set(true)}
 
     let logoColor = "var(--accent)";
     let lightText = 0;
@@ -35,7 +35,7 @@
     </ul>
     <ul>
         <li>Change Theme</li>
-        <li class="button" on:click={toggleDropdown} style={hoverColor}>{$activeTheme}</li>
+        <li class="button" on:click={toggleDropdown} style={hoverColor}>{$theme}</li>
         <Dropdown type="theme" options={themes}></Dropdown>
     </ul>
     <ul>

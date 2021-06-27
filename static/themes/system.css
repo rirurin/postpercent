@@ -1,0 +1,20 @@
+@media (prefers-color-scheme: dark)	{
+	:root	{
+		--background: #1c1c1c;
+		--background-hover: #333333;
+		--graph-axes: #4a4a4a;
+		--text: #ffffff;
+		--textAlt: #1c1c1c;
+		--accent: #f54260;
+	}
+}
+@media (prefers-color-scheme: light)	{
+	:root	{
+		--background: #efefef;
+		--background-hover: #cdcdcd;
+		--graph-axes: #4a4a4a;
+		--text: #1c1c1c;
+		--textAlt: #efefef;
+		--accent: #f54260;
+	}
+}

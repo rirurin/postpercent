@@ -36,7 +36,7 @@
     }
     let promise = getData();
     onMount(async() => {
-        // promise = getData();
+        promise = getData();
     })
     $: if ($page != pageCheck)  {
         promise = getData();
@@ -79,11 +79,3 @@
         padding: 10px calc(4% + 10px);
     }
 </style>
-
-<!--
-
-    .catch(error => {
-            console.error(error);
-            throw new Error('Something went wrong');
-        })
--->
