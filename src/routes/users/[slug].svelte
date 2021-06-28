@@ -71,8 +71,11 @@
         })
     }
     let promise = getData();
+	let lightSystem;
     onMount(async() => {
         // promise = getData();
+		lightSystem = window.matchMedia('(prefers-color-scheme: light)').matches;
+
     })
 
 	$: if (username !== slug)	{
@@ -80,7 +83,7 @@
 		promise = getData();
 	}
 
-	$: if ($theme == "light" || $theme == "jeffalo")	{
+	$: if ($theme == "light" || $theme == "jeffalo" || lightSystem == true)	{
 		pieColors = pieColorsLight
 	} else	{
 		pieColors = pieColorsDark
@@ -96,6 +99,7 @@
 	<title>Error loading user {slug}</title>
 	{/await}
 </svelte:head>
+
 	<header style="background-color:{$highlight}; color:{lightText == 1 ? `#1c1c1c`: `#ffffff`}" class="main-header">
 		<ul class="pfp-container">
 			<li class="pfp">
