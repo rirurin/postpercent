@@ -15,9 +15,9 @@
     let category = $cat;
     let categoryID = 0;
     $: category = $cat;
-    for (let i in categories)   {
-        if (categories[i][1] == category)   {
-            categoryID = categories[i][0]
+    $: for (let i in categories)   {
+        if (categories[i][1] == $cat)   {
+            categoryID = categories[i][0];
         }
     }
 </script>
