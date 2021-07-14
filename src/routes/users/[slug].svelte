@@ -230,7 +230,7 @@
 			<img src="https://shefwerld.rirurin.com/post/linus.jpg" alt="Linus from LinusTechTips">
 		{/if}
 		{#if user.username == "SausageMcSauce"}
-			<img src="https://u.cubeupload.com/SausageMcSauce/toothpasted2.png" alt="TOOTHPASTE™">
+			<img src="https://u.cubeupload.com/SausageMcSauce/toothpasted2.png" style="width:100%;" alt="TOOTHPASTE™">
 		{/if}
 		{#if user.username == "Jeffalo"}
 			&#60;script&#62;alert("gotem")&#60;/script&#62;
