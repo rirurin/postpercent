@@ -121,7 +121,7 @@
 			<li class="status">
 				{#if custom}
 					{#if custom.error == "no user found"}
-						No Ocular status found
+						No ocular status found
 					{:else}
 						{custom.status}
 					{/if}
@@ -187,7 +187,7 @@
 	<span style="opacity: 0; user-select: none; width: 50%; display: flex;">
 		{#if custom}
 			{#if custom.error == "no user found"}
-				No Ocular status found
+				No ocular status found
 			{:else}
 				{custom.status}
 			{/if}
