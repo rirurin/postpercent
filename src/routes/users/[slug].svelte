@@ -24,11 +24,16 @@
 	let pieColorsLight = [];
 	let pieColorsDark = [];
 
+	let userFound = true
+
 	async function getData()    {
 		await fetch(`https://scratchdb.lefty.one/v3/user/info/${slug}`)
         .then(res => res.json())
         .then(data => {
             user = data;
+			if(data.error == "UserNotFoundError") {
+				userFound = false
+			}
         })
 		.catch(error => {
             console.error(error);
@@ -100,6 +105,7 @@
 	{/await}
 </svelte:head>
 
+{#if userFound}
 	<header style="background-color:{$highlight}; color:{lightText == 1 ? `#1c1c1c`: `#ffffff`}" class="main-header">
 		<ul class="pfp-container">
 			<li class="pfp">
@@ -241,6 +247,14 @@
 	{/await}
 	<br>
 </main>
+{:else}
+	<main style="padding-bottom: 25vh">
+		<h1>{slug} was not found :(</h1>
+		<img src="https://c.tenor.com/J2B1VujfTPkAAAAd/yoongi2swag.gif" alt="man eating chip">
+		<a href="/">go home</a>
+	</main>
+{/if}
+
 
 <style>
 	header	{
