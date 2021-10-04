@@ -119,7 +119,7 @@
 		<ul class="info-container">
 			<li class="username">
 				{#if user}
-				<a href="/users/{user.username}"><nobr>{user.username}</nobr></a>
+				<a href="/users/{user.username}"><nobr>{user.username}{user.status == "Scratch Team" ? "*" : ""}</nobr></a>
 				{:else}
 				<a href="/users/{slug}"><nobr>{slug}</nobr></a>
 				{/if}
