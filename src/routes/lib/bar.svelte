@@ -68,7 +68,7 @@
         {#if user}
             <!-- svelte-ignore a11y-missing-attribute -->
             <li><a href="/users/{user.username}"><img src="https://cdn2.scratch.mit.edu/get_image/user/{user.id}_90x90.png" style={width > 5 ? "width: 2em; height: 2em;" : "display: none;"}></a></li>
-            <li class="username"><a href="/users/{user.username}"><nobr>{user.username}</nobr></a></li>
+            <li class="username"><a href="/users/{user.username}"><nobr>{user.username}{user.status == "Scratch Team" ? "*" : ""}</nobr></a></li>
             <li class="posts">
                 <a href="/users/{user.username}" style="font-weight: bold;">{posts}</a>
                 {#if barWidth > 12 && $cat != "total"}
