@@ -151,15 +151,15 @@
 			</ul>
 			<ul class="misc-container">
 				<li class="first-posted">
+					<li class="first-posted-header">First Posted</li>
 					{#if forum}
-						{new Date(forum.firstSeen.date).toLocaleString('en-US')}
+					<a href="https://ocular.jeffalo.net/post/{forum.firstSeen.id}">{new Date(forum.firstSeen.date).toLocaleDateString('en-US')}</a>
 					{/if}
-				</li>
 				<li class="last-posted">
+					<li class="last-posted-header">Last Posted</li>
 					{#if forum}
-						{new Date(forum.lastSeen.date).toLocaleString('en-US')}
+						<a href="https://ocular.jeffalo.net/post/{forum.lastSeen.id}">{new Date(forum.lastSeen.date).toLocaleDateString('en-US')}</a>
 					{/if}
-				</li>
 			</ul>
 			<ul class="misc-container">
 				<li><nobr>View user on:</nobr></li>
@@ -207,6 +207,10 @@
 	<img src="/loading.gif" alt="Loading" class="loading" style="filter: {$theme == "light" || $theme == "jeffalo" ? `brightness(-100)` : `brightness(100)`}">
 	{:then}
 	{#if forum.counts.total.count > 0}
+		<!--
+		<div class="post-dist-title">
+			<div class="category-header-left">Categories posted</div>
+		</div>
 		<div class="post-dist-container">
 			{#each Object.entries(forum.counts) as i, j}
 				{#if i[0] != `total`}
@@ -222,6 +226,7 @@
 			{/each}
 		</div>
 		<br>
+		-->
 		<Charts username={slug} color={custom.color ? custom.color : `#f54260`} colors={pieColors}></Charts>
 	{:else}
 	<div class="no-post-notice">
@@ -254,186 +259,3 @@
 		<a href="/">go home</a>
 	</main>
 {/if}
-
-
-<style>
-	header	{
-        display: flex;
-        justify-content: space-between;
-        padding: 0 4%;
-		transition: background-color 1s, color 1s;
-    }
-	header ul	{
-        display: flex;
-        flex-direction: row;
-        width: 60%;
-        padding: 0;
-        align-items: flex-end;
-    }
-	header ul li	{
-        text-decoration: none;
-        list-style: none;
-        margin: 0 10px;
-    }
-	.info-container > li:first-child	{
-		margin-bottom: auto;
-	}
-	.pfp-container	{
-		justify-content: flex-start;
-		user-select: none;
-		align-items: center;
-	}
-	.misc-container, .info-container	{
-		justify-content: flex-end;
-	}
-	.posts-container, .pfp-container	{
-		flex-direction: row;
-	}
-	.total-post-container, .rank-container, .info-container	{
-		flex-direction: column;
-	}
-
-	.username, .sticky-username, .ranking, .total-posts, .no-post-notice	{
-        font-size: 32px;
-        font-weight: bold;
-    }
-	.status	{
-		margin-bottom: 12px;
-	}
-	.total-posts-header, .ranking-header	{
-		font-weight: bold;
-	}
-
-	main   {
-        padding: 10px calc(4% + 10px);
-    }
-	.pfp img	{
-		width: 170px;
-		height: 170px;
-	}
-	.post-dist-container	{
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		width: 100%;
-		margin: auto;
-	}
-	.post-dist-bar	{
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		width: 25%;
-		user-select: none;
-	}
-	@media only screen and (max-width: 1200px)   {
-        .post-dist-bar    {
-            width: 50%;
-        }
-    }
-	.post-dist-bar ul	{
-		text-align: right;
-		padding: 0;
-		margin: 0;
-	}
-	.post-dist-bar li	{
-		text-decoration: none;
-        list-style: none;
-	}
-	.post-dist-bar > li	{
-		padding-left: 3px;
-	}
-	.post-dist-bar li	{
-		padding-right: 3px;
-		margin: 3px 0;
-	}
-	.post-dist-bar li:first-child	{
-		font-weight: bold;
-	}
-	.misc-container li, .total-posts-header, .scratch-link, .ocular-link	{
-		white-space: nowrap;
-	}
-	.total-post-container	{
-		text-align: right;
-	}
-	.main-header	{
-		position: absolute;
-		width: calc(92%);
-		z-index: 1;
-	}
-	.sticky-header	{
-		list-style: none;
-		text-decoration: none;
-		position: sticky;
-		top: calc(3em + 1px);
-		padding: 5px calc(4% + 10px);
-		align-items: center;
-		z-index: 0;
-	}
-	.sticky-pfp img	{
-		width: 3em;
-		height: 3em;
-	}
-	#compensator	{
-		height: 170px;
-	}
-	@media only screen and (max-width: 720px)   {
-        .username, .ranking, .total-posts	{
-			font-size: inherit;
-			font-weight: bold;
-    	}
-		.info-container	{
-			flex-direction: row;
-			flex-wrap: wrap;
-			align-items: flex-start;
-			width: 100%;
-		}
-		.pfp img	{
-			width: 90px;
-			height: 90px;
-		}
-		.pfp-container	{
-			align-items: flex-start;
-		}
-		.misc-container li, .total-posts-header	{
-			white-space: normal;
-		}
-		.misc-container	{
-			width: 100%;
-		}
-		.header-external-icon	{
-			display: none;
-		}
-		.scratch-link, .ocular-link	{
-			text-decoration: underline;
-		}
-		.total-post-container, .rank-container	{
-			flex-direction: row;
-			justify-content: flex-end;
-		}
-		.posts-container	{
-			flex-direction: row;
-			width: 100%;
-		}
-		header, .sticky-header	{
-			top: calc(5em + 8px);
-		}
-		#compensator	{
-			height: 100px;
-		}
-    }
-	@media only screen and (max-width: 400px)   {
-		.pfp-container	{
-			display: none;
-		}
-		.post-dist-bar    {
-            width: 100%;
-        }
-		.info-container, .posts-container, .misc-container, .total-post-container, .rank-container	{
-			justify-content: center;
-			text-align: center;
-		}
-		header, .sticky-header	{
-			top: calc(10em + 8px);
-		}
-	}
-</style>

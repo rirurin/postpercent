@@ -24,8 +24,7 @@ import { onMount } from 'svelte';
 <footer style="background-color: {$highlight}; color: {lightText == 1 ? `#1c1c1c`: `#ffffff`}">
     <ul>
         <li>Contributors</li>
-        <li>CatsUnited</li>
-	    <li>9gr</li>
+        <li><a href="/about">View Contributors</a></li>
     </ul>
     <ul>
         <li>Data Used</li>

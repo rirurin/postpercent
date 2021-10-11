@@ -46,14 +46,18 @@
     loading
 {:then}
 <Header>
-    <div id="wrapper">
-        <header>
-            <ul>
-                <li id="header-forum-category">{title == "total" ? "All Categories" : title}</li>
-                <li id="header-forum-usercount"><nobr>Page {$page + 1}</nobr></li>
-                
-            </ul>
-        </header>
+    <div id="wrapper" class="cat-header">
+        <ul>
+            <li id="header-forum-category">{title == "total" ? "All Categories" : title}</li>
+            <li id="header-forum-usercount"><nobr>Page {$page + 1}</nobr></li>
+            
+        </ul>
+        <ul id="graph-navigation">
+            <li><span class="iconify" data-icon="topcoat:back" data-inline="false" alt="Previous Page">Previous Page</span></li>
+            <li><span class="iconify" data-icon="topcoat:search" data-inline="false" alt="Go to Page">Go to Page</span></li>
+            <li><span class="iconify" data-icon="topcoat:next" data-inline="false" alt="Next Page">Next Page</span></li>
+           
+        </ul>
     </div>
 </Header>
 
@@ -98,5 +102,11 @@
         #wrapper    {
             top: calc(5em + 8px);
         }
+    }
+    .cat-header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        flex-direction: row;
     }
 </style>
