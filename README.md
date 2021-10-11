@@ -1,6 +1,17 @@
 # postpercent
 
-The better Scratch Forum Leaderboards - better name, better code, not (as) ew stinky
+**AKA The better Scratch Forum Leaderboards - better name, better code, not (as) ew stinky**
+
+postpercent is a website to visually display various statistics for users of the Scratch forums. The data is fetched courtesy of [DatOneLefty's ScratchDB](https://scratchdb.lefty.one/).
+
+## Current Features
+
+- View the leaderboards for users in each forum category
+- View post amount, rank and history for each user
+
+## Planned Features
+
+- Make various code improvements (some things were written into the program quite hastily)
 
 ## Build Instructions
 
