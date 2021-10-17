@@ -57,7 +57,7 @@ header ul li	{
 	flex-direction: column;
 }
 
-.username, .sticky-username, .ranking, .total-posts, .no-post-notice	{
+.username, .sticky-username, .ranking, .total-posts, .no-post-notice, .about-header	{
 	font-size: 32px;
 	font-weight: bold;
 }
