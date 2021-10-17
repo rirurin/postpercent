@@ -41,6 +41,9 @@
 				options: {
 					responsive: true,
 					maintainAspectRatio: false,
+					scales: {
+						beginAtZero: true
+					}
 				},
 			});
         })
@@ -313,5 +316,12 @@
         font-size: 32px;
         font-weight: bold;
     }
-	
+	@media only screen and (max-width: 1200px)   {
+		.main-container {
+			flex-direction: column;
+		}
+		.chart-container {
+			width: 100%;
+		}
+	}
 </style>

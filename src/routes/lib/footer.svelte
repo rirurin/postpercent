@@ -37,9 +37,11 @@ import { onMount } from 'svelte';
         <li><a href="https://github.com/rirurin/postpercent">Source Code <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
     </ul>
     <ul class="right">
-        <li>Other Forum Tools</li>
+        <li>The Toolkit</li>
         <li><a href="https://ocular.jeffalo.net/?utm_campaign=postpercent">ocular <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
 	    <li><a href="https://scratory.vercel.app">scratory <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
+        <li><a href="https://scratchstats.com/">ScratchStats <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
+	    <li><a href="https://magnifier.potatophant.net/">Magnifier <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a></li>
     </ul>
 </footer>
 <style>
