@@ -21,7 +21,63 @@
         }
     }
 </script>
-wip postpercent homepage
-
-<a href="forum/0/1">leaderboards</a>
-<a href="users/CatsUnited">users</a>
+<main class="front-page-title-container">
+    <div class="front-page-title">
+        <div class="front-page-header">
+            <div id="logo">
+                postpercent
+            </div>
+        </div>
+    </div>
+</main>
+<main>
+    <div class="front-page-body">
+        <div class="front-page-description">
+            The tool for viewing statistics for the Scratch Forums
+        </div>
+        <div class="front-page-box-container">
+            <div class="front-page-box">
+                <div class="front-page-box-image">
+                    Image
+                </div>
+                <div class="front-page-box-title">
+                    Leaderboards
+                </div>
+            </div>
+            <div class="front-page-box">
+                <div class="front-page-box-image">
+                    Image
+                </div>
+                <div class="front-page-box-title">
+                    Users
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<style>
+    .front-page-header {
+        font-size: 32px;
+    }
+    .front-page-box-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin: 15px 0%;
+    }
+    .front-page-box {
+        width: calc(40% - 15px);
+        background-color: var(--accent);
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 15px;
+        align-items: center;
+    }
+    .front-page-box-title {
+        font-weight: bold;
+        font-size: 24px;
+    }
+    .front-page-title-container {
+        background-color: var(--accent);
+    }
+</style>

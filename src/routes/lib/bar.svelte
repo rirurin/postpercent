@@ -40,11 +40,14 @@
                 const contraster = [];
                 contraster.push(HEXtoRGB(custom.color).r); contraster.push(HEXtoRGB(custom.color).g); contraster.push(HEXtoRGB(custom.color).b);
                 const brightness = Math.round(((parseInt(contraster[0]) * 299) + (parseInt(contraster[1]) * 587) + (parseInt(contraster[2]) * 114)) / 1000);
+                custom.brightness = brightness;
+                /*
                 if ($theme == "system" || $theme == "dark") {
                     brightness > 150 ? lightText = 1 : lightText = 0;
                 } else  {
                     brightness < 150 ? lightText = 1 : lightText = 0;
                 }
+                */
             }
         })
         .catch(error => {

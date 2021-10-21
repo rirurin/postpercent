@@ -13,6 +13,7 @@
 
 	import Charts from "../lib/charts.svelte";
 	import Header from "../lib/header.svelte";
+	import History from "../lib/history.svelte";
 	
 	export let slug;
 
@@ -47,8 +48,8 @@
 				forum = {"counts":{"total":{"count":0,"rank":0}}, "firstSeen":{"date":"2000-01-01T00:00:00.000Z","id":0},"lastSeen":{"date":"2000-01-01T00:00:00.000Z","id":0}}
 			} else	{
 				for (let i = 1; i < Object.keys(forum.counts).length - 1; i++)	{
-					pieColorsDark.push(`rgb(${Math.random()*100},${Math.random()*100},${Math.random()*100})`)
-					pieColorsLight.push(`rgb(${255 - Math.random()*100},${255 - Math.random()*100},${255 - Math.random()*100})`)
+					// pieColorsDark.push(`rgb(${Math.random()*100},${Math.random()*100},${Math.random()*100})`)
+					pieColors.push(`rgb(${255 - Math.random()*100},${255 - Math.random()*100},${255 - Math.random()*100})`)
 				}
 			}
         })
@@ -91,7 +92,7 @@
 	$: if ($theme == "light" || $theme == "jeffalo" || lightSystem == true)	{
 		pieColors = pieColorsLight
 	} else	{
-		pieColors = pieColorsDark
+		pieColors = pieColorsLight
 	}
 </script>
 
@@ -228,6 +229,7 @@
 		<br>
 		-->
 		<Charts username={slug} color={custom.color ? custom.color : `#f54260`} colors={pieColors}></Charts>
+		<History username={slug} color={custom.color ? custom.color : `#f54260`} colors={pieColors} categories={forum.counts}></History>
 	{:else}
 	<div class="no-post-notice">
 		bruh <br> {slug} has made no forum posts

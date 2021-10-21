@@ -230,3 +230,7 @@ header ul:nth-child(2)	{
 .page-link:hover    {
 	cursor: pointer;
 }
+#logo {
+	font-family: 'Noto Sans JP', Arial, Helvetica, sans-serif;
+	white-space: nowrap;
+}

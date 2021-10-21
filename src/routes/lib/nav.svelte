@@ -37,34 +37,6 @@ function toggleSearch() {$searchActive ? searchActive.set(false) : searchActive.
 <Dialog></Dialog>
 <style>
     #wrapper {position: sticky; top: 0px; z-index: 999; width: 100%;}
-    nav	{
-        background-color: var(--background);
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        align-items: flex-end;
-        padding: 0 4%;
-    }
-    nav li	{
-        text-decoration: none;
-        list-style: none;
-        padding: 10px 15px;
-        user-select: none;
-    }
-    nav li:hover	{
-        background-color: var(--background-hover);
-    }
-    nav li:first-of-type	{
-        margin-right: auto;
-        font-weight: bold;
-    }
-    nav li:first-of-type:hover, .search:hover	{
-        background-color: var(--background);
-    }
-    #logo {
-        font-family: 'Noto Sans JP', Arial, Helvetica, sans-serif;
-        white-space: nowrap;
-    }
     .link:hover {
         cursor: pointer;
     }
@@ -97,6 +69,30 @@ function toggleSearch() {$searchActive ? searchActive.set(false) : searchActive.
         #logo   {
             width: auto;
         }
+    }
+    nav	{
+	background-color: var(--background);
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: flex-end;
+	padding: 0 4%;
+    }
+    nav li	{
+        text-decoration: none;
+        list-style: none;
+        padding: 10px 15px;
+        user-select: none;
+    }
+    nav li:hover	{
+        background-color: var(--background-hover);
+    }
+    nav li:first-of-type	{
+        margin-right: auto;
+        font-weight: bold;
+    }
+    nav li:first-of-type:hover, .search:hover	{
+        background-color: var(--background);
     }
 </style>
 {#if $searchActive == true}
