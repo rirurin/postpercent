@@ -33,7 +33,7 @@
 <main>
     <div class="front-page-body">
         <div class="front-page-description">
-            The tool for viewing statistics for the Scratch Forums
+            The tool for viewing statistics for users of the Scratch Forums
         </div>
         <div class="front-page-box-container">
             <div class="front-page-box">

@@ -17,7 +17,7 @@ import { onMount } from 'svelte';
     }
     onMount(async() => {
         logoColor = "var(--accent)";
-        lightText = 0;
+        // lightText = 0;
     })
 </script>
 

@@ -15,6 +15,9 @@
     let title;
     let urlPage;
 
+    function nextPage()  { page.update(n => n + 1); }
+    function prevPage()  { $page == 0 ? page.set(0) : page.update(n => n - 1);}
+
     async function getData()    {
         for (let i = 0; i < category.length; i++)  {
             console.log(i)
@@ -40,7 +43,7 @@
 
     let promise = getData();
 
-    $: $page = urlPage - 1
+    $: $page = urlPage - 1;
 </script>
 {#await promise}
     loading
@@ -53,10 +56,9 @@
             
         </ul>
         <ul id="graph-navigation">
-            <li><span class="iconify" data-icon="topcoat:back" data-inline="false" alt="Previous Page">Previous Page</span></li>
+            <li on:click={prevPage} class="clickable"><a href="./{$page + 1}"><span class="iconify" data-icon="topcoat:back" data-inline="false" alt="Previous Page">Previous Page</span></a></li>
             <li><span class="iconify" data-icon="topcoat:search" data-inline="false" alt="Go to Page">Go to Page</span></li>
-            <li><span class="iconify" data-icon="topcoat:next" data-inline="false" alt="Next Page">Next Page</span></li>
-           
+            <li on:click={nextPage} class="clickable"><a href="./{$page + 1}"><span class="iconify" data-icon="topcoat:next" data-inline="false" alt="Next Page">Next Page</span></a></li>
         </ul>
     </div>
 </Header>

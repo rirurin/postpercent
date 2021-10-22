@@ -34,7 +34,6 @@ function toggleSearch() {$searchActive ? searchActive.set(false) : searchActive.
         <li class="search"><Search></Search></li>
     </nav>
 </div>
-<Dialog></Dialog>
 <style>
     #wrapper {position: sticky; top: 0px; z-index: 999; width: 100%;}
     .link:hover {
@@ -71,12 +70,12 @@ function toggleSearch() {$searchActive ? searchActive.set(false) : searchActive.
         }
     }
     nav	{
-	background-color: var(--background);
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
-	align-items: flex-end;
-	padding: 0 4%;
+        background-color: var(--background);
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0 4%;
     }
     nav li	{
         text-decoration: none;

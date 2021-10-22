@@ -49,7 +49,7 @@
 			} else	{
 				for (let i = 1; i < Object.keys(forum.counts).length - 1; i++)	{
 					// pieColorsDark.push(`rgb(${Math.random()*100},${Math.random()*100},${Math.random()*100})`)
-					pieColors.push(`rgb(${255 - Math.random()*100},${255 - Math.random()*100},${255 - Math.random()*100})`)
+					pieColors.push(`rgb(${255 - Math.random()*200},${255 - Math.random()*200},${255 - Math.random()*200})`)
 				}
 			}
         })

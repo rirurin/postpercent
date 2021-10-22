@@ -234,3 +234,6 @@ header ul:nth-child(2)	{
 	font-family: 'Noto Sans JP', Arial, Helvetica, sans-serif;
 	white-space: nowrap;
 }
+.clickable {
+	cursor: pointer;
+}
