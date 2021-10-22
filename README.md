@@ -12,6 +12,7 @@ postpercent is a website to visually display various statistics for users of the
 ## Planned Features
 
 - Make various code improvements (some things were written into the program quite hastily)
+- Show the user's post count history for each forum category
 
 ## Build Instructions
 
