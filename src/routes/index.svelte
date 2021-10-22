@@ -41,7 +41,7 @@
                     Image
                 </div>
                 <div class="front-page-box-title">
-                    Leaderboards
+                    <a href="/forum/0/1">Leaderboards</a>
                 </div>
             </div>
             <div class="front-page-box">
@@ -49,7 +49,7 @@
                     Image
                 </div>
                 <div class="front-page-box-title">
-                    Users
+                    <a href="/users/CatsUnited">Users</a>
                 </div>
             </div>
         </div>
@@ -64,6 +64,10 @@
         flex-direction: row;
         justify-content: space-around;
         margin: 15px 0%;
+    }
+    .front-page-body {
+        margin-top: 30px;
+        margin-bottom: 30px;
     }
     .front-page-box {
         width: calc(40% - 15px);
