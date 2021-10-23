@@ -1,5 +1,6 @@
 <script>
-    import { onMount } from 'svelte'; 
+    import { onMount } from 'svelte';
+    import Header from './lib/header.svelte';
     let contributors;
 	async function getData()    {
 		await fetch(`https://api.github.com/repos/rirurin/postpercent/contributors`)
@@ -18,9 +19,11 @@
 {#await promise}
     loading
 {:then}
-    <div class="about-header">
-        List of contributors
-    </div>
+    <Header>
+        <div class="about-header">
+            List of contributors
+        </div>
+    </Header>
     <div class="about-container">
         {#each contributors as contributor}
             <div class="contributor-container">
@@ -39,13 +42,14 @@
     </div>
 {/await}
 <style>
-    .about-header, .about-container {
+    .about-container {
         padding: 0% calc(4% + 10px);
     }
     .about-header {
-        margin-bottom: 10px;
+        padding: 10px 0;
     }
     .about-container {
+        margin-top: 15px;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
