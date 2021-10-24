@@ -15,15 +15,18 @@
     let title;
     let urlPage;
     let isPageSearching = 0;
+    let isCategorySearching = 0;
     let pageInput;
 
     function nextPage()  { page.update(n => n + 1); }
     function prevPage()  { $page == 0 ? page.set(0) : page.update(n => n - 1);}
     function searPage()  { isPageSearching == 0 ? isPageSearching = 1 : isPageSearching = 0;}
+    function searCat()   { isCategorySearching == 0 ? isCategorySearching = 1 : isCategorySearching = 0;}
+    function changCat(category)  { isCategorySearching = 0; cat.set(category); page.set(0);}
 
     function search()  {
         if (/^\d+$/.test(pageInput))   {
-            page.set(pageInput.length > 0 ? Number(pageInput - 1) : 0);
+            page.set(pageInput.length > 0 ? Number(pageInput - 1) : 1);
             isPageSearching = 0;
         } else  {
             alert("Please enter a number");
@@ -63,13 +66,20 @@
     loading
 {:then}
 <Header>
-    <div id="wrapper" class="cat-header" style="width: {isPageSearching == 1 ? '0%' : '100%'}; transition: width 0.5s;">
+    <div id="category-wrapper" class="cat-header" style="width: {isCategorySearching == 1 ? '75%' : '0%'}; transition: width 0.5s;">
+        <div class="category-scroller">
+            {#each categories.map(x => x[0, 1]) as i, j}
+                <li on:click={() => changCat(i)} class="category-selection"><a href="../{j}/1"><nobr>{i == "total" ? "All Categories" : i}</nobr></a></li>
+            {/each}
+        </div>
+    </div>
+    <div id="wrapper" class="cat-header" style="width: {isPageSearching == 1 ? '0%' : isCategorySearching == 1 ? '25%' : '100%'}; transition: width 0.5s;">
         <ul>
-            <li id="header-forum-category"><nobr>{title == "total" ? "All Categories" : title} <span class="iconify clickable" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span></nobr></li>
+            <li id="header-forum-category" class="clickable" on:click={searCat}><nobr><span class="iconify cat-caret" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span>{title == "total" ? "All Categories" : title}</nobr></li>
             <li id="header-forum-usercount"><nobr>Page {$page + 1}</nobr></li>
             
         </ul>
-        <ul id="graph-navigation">
+        <ul id="graph-navigation" style="display: {isCategorySearching == 1 ? 'none' : 'flex'};">
             <li on:click={prevPage} class="clickable"><a href="./{$page + 1}"><span class="iconify" data-icon="topcoat:back" data-inline="false" alt="Previous Page">Previous Page</span></a></li>
             <li on:click={searPage}><span class="iconify" data-icon="topcoat:search" data-inline="false" alt="Go to Page">Go to Page</span></li>
             <li on:click={nextPage} class="clickable"><a href="./{$page + 1}"><span class="iconify" data-icon="topcoat:next" data-inline="false" alt="Next Page">Next Page</span></a></li>
@@ -134,7 +144,7 @@
         justify-content: center;
         flex-direction: row;
     }
-    #search-wrapper {
+    #search-wrapper, #category-wrapper {
         overflow: hidden;
     }
 
@@ -173,5 +183,28 @@
     .page-sumbit { width: 20%; } .page-back { width: 10%; }
     #page-search-container {
         width: 100%;
+    }
+    .category-selection {
+        text-decoration: none;
+        list-style: none;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 0 10px;
+        align-self: center;
+        justify-self: center;
+        height: 2em;
+    }
+    .category-scroller {
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        align-items: center;
+    }
+    .cat-caret {
+        margin-right: 15px;
+        transition: rotate 0.5s;
+        transform: rotate(90deg)!important;
     }
 </style>
