@@ -12,6 +12,7 @@
     import Graph from '../lib/graph.svelte';
     import Header from '../lib/header.svelte';
     import Dropdown from '../lib/dropdown.svelte';
+    import Category from '../lib/category.svelte';
     let title;
     let urlPage;
     let isPageSearching = 0;
@@ -22,7 +23,7 @@
     function prevPage()  { $page == 0 ? page.set(0) : page.update(n => n - 1);}
     function searPage()  { isPageSearching == 0 ? isPageSearching = 1 : isPageSearching = 0;}
     function searCat()   { isCategorySearching == 0 ? isCategorySearching = 1 : isCategorySearching = 0;}
-    function changCat(category)  { isCategorySearching = 0; cat.set(category); page.set(0);}
+    function catChange(category) { cat.set(category);}
 
     function search()  {
         if (/^\d+$/.test(pageInput))   {
@@ -66,14 +67,12 @@
     loading
 {:then}
 <Header>
-    <div id="category-wrapper" class="cat-header" style="width: {isCategorySearching == 1 ? '75%' : '0%'}; transition: width 0.5s;">
-        <div class="category-scroller">
-            {#each categories.map(x => x[0, 1]) as i, j}
-                <li on:click={() => changCat(i)} class="category-selection"><a href="../{j}/1"><nobr>{i == "total" ? "All Categories" : i}</nobr></a></li>
-            {/each}
-        </div>
+    <div id="category-wrapper" class="cat-header" style="width: {isCategorySearching == 1 ? '100%' : '0%'}; transition: width 0.3s;">
+        <ul id="page-search-container" class="select-category-header">
+            <li id="header-forum-category" class="clickable" on:click={searCat}><nobr>Select a Category <span class="iconify cat-caret-flip" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span></nobr></li>
+        </ul>
     </div>
-    <div id="wrapper" class="cat-header" style="width: {isPageSearching == 1 ? '0%' : isCategorySearching == 1 ? '25%' : '100%'}; transition: width 0.5s;">
+    <div id="wrapper" class="cat-header" style="width: {isPageSearching == 1 || isCategorySearching == 1 ? '0%' : '100%'}; transition: width 0.3s;">
         <ul>
             <li id="header-forum-category" class="clickable" on:click={searCat}><nobr><span class="iconify cat-caret" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span>{title == "total" ? "All Categories" : title}</nobr></li>
             <li id="header-forum-usercount"><nobr>Page {$page + 1}</nobr></li>
@@ -85,7 +84,7 @@
             <li on:click={nextPage} class="clickable"><a href="./{$page + 1}"><span class="iconify" data-icon="topcoat:next" data-inline="false" alt="Next Page">Next Page</span></a></li>
         </ul>
     </div>
-    <div id="search-wrapper" class="cat-header" style="width: {isPageSearching == 0 ? '0%' : '100%'}; transition: width 0.5s;">
+    <div id="search-wrapper" class="cat-header" style="width: {isPageSearching == 0 ? '0%' : '100%'}; transition: width 0.3s;">
         <ul id="page-search-container">
             <!-- svelte-ignore a11y-missing-attribute -->
             <li class="page-back" style={hoverColor} on:click={cancel}><a>Back</a></li>
@@ -94,6 +93,13 @@
             <a href="./{$page + 1}" class="page-sumbit" on:click={search}><li style={hoverColor}><nobr>Search Page</nobr></li></a>
         </ul>
     </div>
+</Header>
+<Header>
+    <ul class="category-display-container" style="height: {isCategorySearching == 1 ? '10em' : '0em'}; overflow: hidden;">
+        {#each categories.map(x => x[1, 0]) as i, j}
+            <Category link={i} name={j}></Category>
+        {/each}
+    </ul>
 </Header>
 
 <Graph page={$page} category={$cat}></Graph>
@@ -128,6 +134,10 @@
         font-size: 32px;
         font-weight: bold;
         user-select: none;
+    }
+    .select-category-header {
+        width: 100%;
+        display: flex;
     }
     #wrapper {position: sticky; top: calc(3em + 2px); z-index: 996; overflow: hidden;}
     @media only screen and (max-width: 720px)   {
@@ -183,6 +193,7 @@
     .page-sumbit { width: 20%; } .page-back { width: 10%; }
     #page-search-container {
         width: 100%;
+        justify-content: flex-end;
     }
     .category-selection {
         text-decoration: none;
@@ -204,7 +215,25 @@
     }
     .cat-caret {
         margin-right: 15px;
-        transition: rotate 0.5s;
+        transition: rotate 0.3s;
         transform: rotate(90deg)!important;
+    }
+    .cat-caret-flip {
+        margin-left: 15px;
+        transition: rotate 0.3s;
+        transform: rotate(270deg)!important;
+    }
+    .category-display-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        width: 100%;
+        user-select: none;
+        margin: 0px;
+        transition: height 0.3s;
+    }
+    #header-forum-usercount {
+        user-select: none;
     }
 </style>

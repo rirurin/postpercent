@@ -67,7 +67,7 @@
     <ul class="rank" style="min-width: calc(2.5em + {Math.floor(Math.log(page + 1))/2}em);">
         <li>{rank}</li>
     </ul>
-    <ul class="bar" style="width: {barWidth}%; background-color: {barColor}; color: {lightText == 1 && width > 5 ? `var(--background)` : `var(--text)`}; transition: width 1s, background-color 1s, color 1s;">
+    <ul class="bar" style="width: {barWidth}%; background-color: {barColor}; color: {lightText == 1 && width > 5 ? `var(--background)` : `var(--text)`}; transition: width 0.7s, background-color 0.7s, color 0.7s;">
         {#if user}
             <!-- svelte-ignore a11y-missing-attribute -->
             <li><a href="/users/{user.username}" class="bar-image"><img src="https://cdn2.scratch.mit.edu/get_image/user/{user.id}_90x90.png" style={width > 5 ? "width: 2em; height: 2em;" : "display: none;"} alt="{user.username}" ></a></li>

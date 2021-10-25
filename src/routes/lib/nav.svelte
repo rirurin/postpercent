@@ -40,7 +40,7 @@ function keyDown (event)    {
 </script>
 
 <div id="top-wrapper">
-    <nav id="main-nav" style="width: {$searchActive ? '0%' : '100%'}; transition: width 0.5s;">
+    <nav id="main-nav" style="width: {$searchActive ? '0%' : '100%'}; transition: width 0.3s;">
         <li id="logo">
             <a href="/" class="link">
                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 196" style="width: 2em;"><polygon fill="{$highlight}" class="cls-1" points="131.46 63 28 63 28 93 114.14 93 131.46 63"/><polygon fill="{$highlight}" class="cls-1" points="28 113 28 143 48.79 143 48.79 163 88.79 143 228 143 228 113 28 113"/><polygon fill="{$highlight}" class="cls-1" points="124.54 193 228 193 228 163 141.86 163 124.54 193"/></svg>
@@ -51,7 +51,7 @@ function keyDown (event)    {
         <li class="link" on:click={toggleSearch}>Users</li>
         <li class="link" on:click={toggleDialog}>Settings</li>
     </nav>
-    <nav id="search-nav" style="width: {$searchActive ? '100%' : '0%'}; transition: width 0.5s;">
+    <nav id="search-nav" style="width: {$searchActive ? '100%' : '0%'}; transition: width 0.3s;">
         <ul>
             <!-- svelte-ignore a11y-missing-attribute -->
             <a on:click={cancel} class="back"><li style={hoverColor}>Back</li></a>
@@ -63,7 +63,7 @@ function keyDown (event)    {
 </div>
 <svelte:window on:keydown={keyDown}></svelte:window>
 <style>
-    #top-wrapper {position: sticky; top: 0px; z-index: 999; padding: 0% 4%; display: flex; flex-direction: row;}
+    #top-wrapper {position: sticky; top: 0px; z-index: 999; padding: 0% 4%; display: flex; flex-direction: row; background-color: var(--background);}
     .link:hover {
         cursor: pointer;
     }
@@ -98,7 +98,6 @@ function keyDown (event)    {
         }
     }
     nav	{
-        background-color: var(--background);
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
