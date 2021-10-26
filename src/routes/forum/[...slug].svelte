@@ -7,7 +7,7 @@
 </script>
 <script>
     export let category;
-    import { page, cat, categories, highlight, searchActive } from "../storage.js";
+    import { page, cat, categories, highlight, searchActive, isCategorySearching } from "../storage.js";
     import { goto, invalidate, prefetch, prefetchRoutes } from '$app/navigation';
     import Graph from '../lib/graph.svelte';
     import Header from '../lib/header.svelte';
@@ -16,14 +16,13 @@
     let title;
     let urlPage;
     let isPageSearching = 0;
-    let isCategorySearching = 0;
     let pageInput;
 
     function nextPage()  { page.update(n => n + 1); }
     function prevPage()  { $page == 0 ? page.set(0) : page.update(n => n - 1);}
     function searPage()  { isPageSearching == 0 ? isPageSearching = 1 : isPageSearching = 0;}
-    function searCat()   { isCategorySearching == 0 ? isCategorySearching = 1 : isCategorySearching = 0;}
-    function catChange(category) { cat.set(category);}
+    function searCat()   { $isCategorySearching ? isCategorySearching.set(false) : isCategorySearching.set(true);}
+    function catChange(category) { cat.update(n => n = category);}
 
     function search()  {
         if (/^\d+$/.test(pageInput))   {
@@ -67,18 +66,18 @@
     loading
 {:then}
 <Header>
-    <div id="category-wrapper" class="cat-header" style="width: {isCategorySearching == 1 ? '100%' : '0%'}; transition: width 0.3s;">
+    <div id="category-wrapper" class="cat-header" style="width: {$isCategorySearching ? '100%' : '0%'}; transition: width 0.3s;">
         <ul id="page-search-container" class="select-category-header">
             <li id="header-forum-category" class="clickable" on:click={searCat}><nobr>Select a Category <span class="iconify cat-caret-flip" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span></nobr></li>
         </ul>
     </div>
-    <div id="wrapper" class="cat-header" style="width: {isPageSearching == 1 || isCategorySearching == 1 ? '0%' : '100%'}; transition: width 0.3s;">
+    <div id="wrapper" class="cat-header" style="width: {isPageSearching == 1 || $isCategorySearching ? '0%' : '100%'}; transition: width 0.3s;">
         <ul>
-            <li id="header-forum-category" class="clickable" on:click={searCat}><nobr><span class="iconify cat-caret" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span>{title == "total" ? "All Categories" : title}</nobr></li>
+            <li id="header-forum-category" class="clickable" on:click={searCat}><nobr><span class="iconify cat-caret" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span>{$cat == "total" ? "All Categories" : $cat}</nobr></li>
             <li id="header-forum-usercount"><nobr>Page {$page + 1}</nobr></li>
             
         </ul>
-        <ul id="graph-navigation" style="display: {isCategorySearching == 1 ? 'none' : 'flex'};">
+        <ul id="graph-navigation" style="display: {$isCategorySearching ? 'none' : 'flex'};">
             <li on:click={prevPage} class="clickable"><a href="./{$page + 1}"><span class="iconify" data-icon="topcoat:back" data-inline="false" alt="Previous Page">Previous Page</span></a></li>
             <li on:click={searPage}><span class="iconify" data-icon="topcoat:search" data-inline="false" alt="Go to Page">Go to Page</span></li>
             <li on:click={nextPage} class="clickable"><a href="./{$page + 1}"><span class="iconify" data-icon="topcoat:next" data-inline="false" alt="Next Page">Next Page</span></a></li>
@@ -95,7 +94,7 @@
     </div>
 </Header>
 <Header>
-    <ul class="category-display-container" style="height: {isCategorySearching == 1 ? '10em' : '0em'}; overflow: hidden;">
+    <ul class="category-display-container" style="height: {$isCategorySearching ? '10em' : '0em'}; overflow-y: scroll;">
         {#each categories.map(x => x[1, 0]) as i, j}
             <Category link={i} name={j}></Category>
         {/each}

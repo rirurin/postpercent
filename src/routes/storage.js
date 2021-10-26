@@ -3,6 +3,7 @@ import { writable } from 'svelte/store';
 export const page = writable(0);
 export const category = writable(0);
 export const cat = writable("total");
+export const isCategorySearching = writable(false);
 export const dialogActive = writable(false);
 export const categoryDropdownActive = writable(false);
 export const themeDropdownActive = writable(false);
