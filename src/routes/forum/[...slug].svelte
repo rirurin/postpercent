@@ -7,11 +7,12 @@
 </script>
 <script>
     export let category;
-    import { page, cat, categories, highlight, searchActive } from "../storage.js";
+    import { page, cat, categories, highlight, searchActive, isCategorySearching } from "../storage.js";
     import { goto, invalidate, prefetch, prefetchRoutes } from '$app/navigation';
     import Graph from '../lib/graph.svelte';
     import Header from '../lib/header.svelte';
     import Dropdown from '../lib/dropdown.svelte';
+    import Category from '../lib/category.svelte';
     let title;
     let urlPage;
     let isPageSearching = 0;
@@ -20,10 +21,12 @@
     function nextPage()  { page.update(n => n + 1); }
     function prevPage()  { $page == 0 ? page.set(0) : page.update(n => n - 1);}
     function searPage()  { isPageSearching == 0 ? isPageSearching = 1 : isPageSearching = 0;}
+    function searCat()   { $isCategorySearching ? isCategorySearching.set(false) : isCategorySearching.set(true);}
+    function catChange(category) { cat.update(n => n = category);}
 
     function search()  {
         if (/^\d+$/.test(pageInput))   {
-            page.set(pageInput.length > 0 ? Number(pageInput - 1) : 0);
+            page.set(pageInput.length > 0 ? Number(pageInput - 1) : 1);
             isPageSearching = 0;
         } else  {
             alert("Please enter a number");
@@ -63,19 +66,24 @@
     loading
 {:then}
 <Header>
-    <div id="wrapper" class="cat-header" style="width: {isPageSearching == 1 ? '0%' : '100%'}; transition: width 0.5s;">
+    <div id="category-wrapper" class="cat-header" style="width: {$isCategorySearching ? '100%' : '0%'}; transition: width 0.3s;">
+        <ul id="page-search-container" class="select-category-header">
+            <li id="header-forum-category" class="clickable" on:click={searCat}><nobr>Select a Category <span class="iconify cat-caret-flip" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span></nobr></li>
+        </ul>
+    </div>
+    <div id="wrapper" class="cat-header" style="width: {isPageSearching == 1 || $isCategorySearching ? '0%' : '100%'}; transition: width 0.3s;">
         <ul>
-            <li id="header-forum-category"><nobr>{title == "total" ? "All Categories" : title} <span class="iconify clickable" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span></nobr></li>
+            <li id="header-forum-category" class="clickable" on:click={searCat}><nobr><span class="iconify cat-caret" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span>{$cat == "total" ? "All Categories" : $cat}</nobr></li>
             <li id="header-forum-usercount"><nobr>Page {$page + 1}</nobr></li>
             
         </ul>
-        <ul id="graph-navigation">
+        <ul id="graph-navigation" style="display: {$isCategorySearching ? 'none' : 'flex'};">
             <li on:click={prevPage} class="clickable"><a href="./{$page + 1}"><span class="iconify" data-icon="topcoat:back" data-inline="false" alt="Previous Page">Previous Page</span></a></li>
             <li on:click={searPage}><span class="iconify" data-icon="topcoat:search" data-inline="false" alt="Go to Page">Go to Page</span></li>
             <li on:click={nextPage} class="clickable"><a href="./{$page + 1}"><span class="iconify" data-icon="topcoat:next" data-inline="false" alt="Next Page">Next Page</span></a></li>
         </ul>
     </div>
-    <div id="search-wrapper" class="cat-header" style="width: {isPageSearching == 0 ? '0%' : '100%'}; transition: width 0.5s;">
+    <div id="search-wrapper" class="cat-header" style="width: {isPageSearching == 0 ? '0%' : '100%'}; transition: width 0.3s;">
         <ul id="page-search-container">
             <!-- svelte-ignore a11y-missing-attribute -->
             <li class="page-back" style={hoverColor} on:click={cancel}><a>Back</a></li>
@@ -84,6 +92,13 @@
             <a href="./{$page + 1}" class="page-sumbit" on:click={search}><li style={hoverColor}><nobr>Search Page</nobr></li></a>
         </ul>
     </div>
+</Header>
+<Header>
+    <ul class="category-display-container" style="height: {$isCategorySearching ? '10em' : '0em'}; overflow-y: scroll;">
+        {#each categories.map(x => x[1, 0]) as i, j}
+            <Category link={i} name={j}></Category>
+        {/each}
+    </ul>
 </Header>
 
 <Graph page={$page} category={$cat}></Graph>
@@ -119,6 +134,10 @@
         font-weight: bold;
         user-select: none;
     }
+    .select-category-header {
+        width: 100%;
+        display: flex;
+    }
     #wrapper {position: sticky; top: calc(3em + 2px); z-index: 996; overflow: hidden;}
     @media only screen and (max-width: 720px)   {
         #header-forum-category	{
@@ -134,7 +153,7 @@
         justify-content: center;
         flex-direction: row;
     }
-    #search-wrapper {
+    #search-wrapper, #category-wrapper {
         overflow: hidden;
     }
 
@@ -173,5 +192,47 @@
     .page-sumbit { width: 20%; } .page-back { width: 10%; }
     #page-search-container {
         width: 100%;
+        justify-content: flex-end;
+    }
+    .category-selection {
+        text-decoration: none;
+        list-style: none;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        margin: 0 10px;
+        align-self: center;
+        justify-self: center;
+        height: 2em;
+    }
+    .category-scroller {
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        align-items: center;
+    }
+    .cat-caret {
+        margin-right: 15px;
+        transition: rotate 0.3s;
+        transform: rotate(90deg)!important;
+    }
+    .cat-caret-flip {
+        margin-left: 15px;
+        transition: rotate 0.3s;
+        transform: rotate(270deg)!important;
+    }
+    .category-display-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        width: 100%;
+        user-select: none;
+        margin: 0px;
+        transition: height 0.3s;
+    }
+    #header-forum-usercount {
+        user-select: none;
     }
 </style>

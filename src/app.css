@@ -7,6 +7,8 @@ body	{
 	color: var(--text);
 	font-family: 'Roboto', Arial, Helvetica, sans-serif;
 	transition: background-color 1s;
+	scrollbar-width: thin;
+	scrollbar-color: var(--background) var(--accent);
 }
 a	{
 	color: inherit;
