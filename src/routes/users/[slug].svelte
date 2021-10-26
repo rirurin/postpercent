@@ -6,7 +6,7 @@
 </script>
 <script>
 	import { onMount } from 'svelte';
-	import { theme, cat, highlight } from '../storage.js';
+	import { theme, cat, highlight, isOnUserPage } from '../storage.js';
 	import { HEXtoRGB } from '../lib/hextorgb.js';
 	import { rankifier } from '../lib/rankifier.js';
 	import { HSVtoRGB } from '../lib/hsvtorgb.js';
@@ -14,8 +14,11 @@
 	import Charts from "../lib/charts.svelte";
 	import Header from "../lib/header.svelte";
 	import History from "../lib/history.svelte";
+	import HeaderMain from "../lib/header-main.svelte";
 	
 	export let slug;
+
+	isOnUserPage.set(true);
 
 	let username = slug;
 	let user, forum, custom;
@@ -24,6 +27,7 @@
 	let pieColors = [];
 	let pieColorsLight = [];
 	let pieColorsDark = [];
+	let coolTransition = 0;
 
 	let userFound = true
 
@@ -32,6 +36,7 @@
         .then(res => res.json())
         .then(data => {
             user = data;
+			coolTransition = 1;
 			if(data.error == "UserNotFoundError") {
 				userFound = false
 			}
@@ -108,70 +113,75 @@
 
 {#if userFound}
 	<header style="background-color:{$highlight}; color:{lightText == 1 ? `#1c1c1c`: `#ffffff`}" class="main-header">
-		<ul class="pfp-container">
-			<li class="pfp">
-				{#if user}
-				<a href="/users/{user.username}"><img src="https://uploads.scratch.mit.edu/users/avatars/{user.id}.png" alt={slug}></a>
-				{:else}
-				<a href="/users/{slug}"><span class="iconify" data-icon="ant-design:user-outlined" data-inline="false"></span></a>
-				{/if}
-			</li>
-		</ul>
-		<ul class="info-container">
-			<li class="username">
-				{#if user}
-				<a href="/users/{user.username}"><nobr>{user.username}{user.status == "Scratch Team" ? "*" : ""}</nobr></a>
-				{:else}
-				<a href="/users/{slug}"><nobr>{slug}</nobr></a>
-				{/if}
-			</li>
-			<li class="status">
-				{#if custom}
-					{#if custom.error == "no user found"}
-						No ocular status found
+		<div class="main-header-container" style="width: {coolTransition == 1 ? '100%' : '0%'}; transition: width 0.2s; overflow: hidden;">
+			<ul class="pfp-container">
+				<li class="pfp">
+					{#if user}
+					<a href="/users/{user.username}"><img src="https://uploads.scratch.mit.edu/users/avatars/{user.id}.png" alt={slug}></a>
 					{:else}
-						{custom.status}
+					<a href="/users/{slug}"><span class="iconify" data-icon="ant-design:user-outlined" data-inline="false"></span></a>
 					{/if}
-				{:else}
-					Getting status...
-				{/if}
-			</li>
-			<ul class="posts-container">
-				<ul class="total-post-container">
-					<li class="total-posts-header">Total Posts</li>
-					{#if forum}
-						<li class="total-posts">{forum.counts.total.count}</li>
-					{/if}
-				</ul>
-				<ul class="rank-container">
-					<li class="ranking-header">Rank</li>
-					{#if forum}
-						<li class="ranking">{rankifier(forum.counts.total.rank)}</li>
-					{/if}
-				</ul>
-			</ul>
-			<ul class="misc-container">
-				<li class="first-posted">
-					<li class="first-posted-header">First Posted</li>
-					{#if forum}
-					<a href="https://ocular.jeffalo.net/post/{forum.firstSeen.id}">{new Date(forum.firstSeen.date).toLocaleDateString('en-US')}</a>
-					{/if}
-				<li class="last-posted">
-					<li class="last-posted-header">Last Posted</li>
-					{#if forum}
-						<a href="https://ocular.jeffalo.net/post/{forum.lastSeen.id}">{new Date(forum.lastSeen.date).toLocaleDateString('en-US')}</a>
-					{/if}
-			</ul>
-			<ul class="misc-container">
-				<li><nobr>View user on:</nobr></li>
-				<li class="scratch-link">
-					<a href="https://scratch.mit.edu/users/{slug}">scratch <span class="iconify header-external-icon" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>
-				</li>
-				<li class="ocular-link">
-					<a href="https://ocular.jeffalo.net/user/{slug}?utm_campaign=postpercent">ocular <span class="iconify header-external-icon" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>
 				</li>
 			</ul>
-		</ul>
+			<ul class="info-container">
+				<li class="username">
+					{#if user}
+					<a href="/users/{user.username}"><nobr>{user.username}{user.status == "Scratch Team" ? "*" : ""}</nobr></a>
+					{:else}
+					<a href="/users/{slug}"><nobr>{slug}</nobr></a>
+					{/if}
+				</li>
+				<li class="status">
+					{#if custom}
+						{#if custom.error == "no user found"}
+							No ocular status found
+						{:else}
+							{custom.status}
+						{/if}
+					{:else}
+						Getting status...
+					{/if}
+				</li>
+				<ul class="posts-container">
+					<ul class="total-post-container">
+						<li class="total-posts-header">Total Posts</li>
+						{#if forum}
+							<li class="total-posts">{forum.counts.total.count}</li>
+						{/if}
+					</ul>
+					<ul class="rank-container">
+						<li class="ranking-header">Rank</li>
+						{#if forum}
+							<li class="ranking">{rankifier(forum.counts.total.rank)}</li>
+						{/if}
+					</ul>
+				</ul>
+				<ul class="misc-container">
+					<li class="first-posted">
+						<li class="first-posted-header">First Posted</li>
+						{#if forum}
+						<a href="https://ocular.jeffalo.net/post/{forum.firstSeen.id}">{new Date(forum.firstSeen.date).toLocaleDateString('en-US')}</a>
+						{/if}
+					<li class="last-posted">
+						<li class="last-posted-header">Last Posted</li>
+						{#if forum}
+							<a href="https://ocular.jeffalo.net/post/{forum.lastSeen.id}">{new Date(forum.lastSeen.date).toLocaleDateString('en-US')}</a>
+						{/if}
+				</ul>
+				<ul class="misc-container">
+					<li><nobr>View user on:</nobr></li>
+					<li class="scratch-link">
+						<a href="https://scratch.mit.edu/users/{slug}">scratch <span class="iconify header-external-icon" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>
+					</li>
+					<li class="ocular-link">
+						<a href="https://ocular.jeffalo.net/user/{slug}?utm_campaign=postpercent">ocular <span class="iconify header-external-icon" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>
+					</li>
+				</ul>
+			</ul>
+		</div>
+		<div class="main-header-container" style="width: {coolTransition == 0 ? '100%' : '0%'}; transition: width 0.2s; overflow: hidden;">
+			<ul class="info-container" style="width: 100%;"><li class="username">Loading...</li></ul>
+		</div>
 	</header>
 
 <header style="background-color:{$highlight}; color:{lightText == 1 ? `#1c1c1c`: `#ffffff`}" class="sticky-header">

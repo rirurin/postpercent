@@ -1,25 +1,11 @@
-<script context="module">
-	export async function load (ctx)	{
-		let category = ctx.page.params.slug;
-        console.log(ctx.page.params.slug)
-		return { props: {category}};
-	}
-</script>
 <script>
-    export let category;
-    import { page, cat, categories, highlight, searchActive, isCategorySearching, isOnUserPage } from "../storage.js";
-    import { goto, invalidate, prefetch, prefetchRoutes } from '$app/navigation';
-    import Graph from '../lib/graph.svelte';
-    import Header from '../lib/header.svelte';
-    import Dropdown from '../lib/dropdown.svelte';
-    import Category from '../lib/category.svelte';
-    import HeaderMain from '../lib/header-main.svelte';
+    import Header from "./header.svelte";
+    import { isCategorySearching, page, cat, highlight, isOnUserPage } from "../storage.js";
+
     let title;
     let urlPage;
     let isPageSearching = 0;
     let pageInput;
-    
-    isOnUserPage.set(false);
 
     function nextPage()  { page.update(n => n + 1); }
     function prevPage()  { $page == 0 ? page.set(0) : page.update(n => n - 1);}
@@ -36,45 +22,16 @@
         }
     }
     function cancel()  {isPageSearching = 0; }
-
-    async function getData()    {
-        for (let i = 0; i < category.length; i++)  {
-            console.log(i)
-            if (category.charAt(i) == "/")  {
-                urlPage = category.substring(i + 1, category.length);
-                category = category.substring(0, i);
-                $page = urlPage - 1;
-                break;
-            }
-        }
-        for (let i in categories) {
-            if (categories[i][0] == category)   {
-                title = categories[i][1];
-                $cat = title;
-            }
-        }
-        if (title === undefined) { 
-            title = "Private/Not a Forum";
-        }
-    }
-
-    highlight.set("var(--accent)");
-
-    let promise = getData();
-
-    $: $page = urlPage - 1;
     $: hoverColor = `--hoverColor:${$highlight};`;
 </script>
-{#await promise}
-    loading
-{:then}
-<!--
 <Header>
+    <!-- Leaderboards Main Display -->
     <div id="category-wrapper" class="cat-header" style="width: {$isCategorySearching ? '100%' : '0%'}; transition: width 0.3s;">
         <ul id="page-search-container" class="select-category-header">
             <li id="header-forum-category" class="clickable" on:click={searCat}><nobr>Select a Category <span class="iconify cat-caret-flip" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span></nobr></li>
         </ul>
     </div>
+    <!-- Leaderboards Search for Category -->
     <div id="wrapper" class="cat-header" style="width: {isPageSearching == 1 || $isCategorySearching ? '0%' : '100%'}; transition: width 0.3s;">
         <ul>
             <li id="header-forum-category" class="clickable" on:click={searCat}><nobr><span class="iconify cat-caret" data-icon="ion-caret-down" data-inline="false" style="font-size: 16px;"></span>{$cat == "total" ? "All Categories" : $cat}</nobr></li>
@@ -87,6 +44,7 @@
             <li on:click={nextPage} class="clickable"><a href="./{$page + 1}"><span class="iconify" data-icon="topcoat:next" data-inline="false" alt="Next Page">Next Page</span></a></li>
         </ul>
     </div>
+    <!-- Leaderboards Search for Page -->
     <div id="search-wrapper" class="cat-header" style="width: {isPageSearching == 0 ? '0%' : '100%'}; transition: width 0.3s;">
         <ul id="page-search-container">
             <li class="page-back" style={hoverColor} on:click={cancel}><a>Back</a></li>
@@ -95,18 +53,6 @@
         </ul>
     </div>
 </Header>
--->
-<HeaderMain/>
-<Header>
-    <ul class="category-display-container" style="height: {$isCategorySearching ? '10em' : '0em'}; overflow-y: scroll;">
-        {#each categories.map(x => x[1, 0]) as i, j}
-            <Category link={i} name={j}></Category>
-        {/each}
-    </ul>
-</Header>
-
-<Graph page={$page} category={$cat}></Graph>
-{/await}
 
 <style>
     header	{

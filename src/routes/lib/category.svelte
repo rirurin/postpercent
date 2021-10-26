@@ -10,4 +10,7 @@
     .category-display {
         list-style: none;
     }
+    .category-display:hover {
+        font-weight: bold;
+    }
 </style>

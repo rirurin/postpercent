@@ -13,11 +13,12 @@ import { onMount } from 'svelte';
             contraster.push(HEXtoRGB(logoColor).r); contraster.push(HEXtoRGB(logoColor).g); contraster.push(HEXtoRGB(logoColor).b);
             const brightness = Math.round(((parseInt(contraster[0]) * 299) + (parseInt(contraster[1]) * 587) + (parseInt(contraster[2]) * 114)) / 1000);
             brightness > 150 ? lightText = 1 : lightText = 0;
+        } else {
+            lightText = 0;
         }
     }
     onMount(async() => {
         logoColor = "var(--accent)";
-        // lightText = 0;
     })
 </script>
 

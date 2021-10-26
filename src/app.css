@@ -239,3 +239,8 @@ header ul:nth-child(2)	{
 .clickable {
 	cursor: pointer;
 }
+.main-header-container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
