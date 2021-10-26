@@ -223,15 +223,6 @@
 <ul class="main-container">
 	<ul class="chart-container">
 		<ul class="chart-container-header">
-			<li class="category-header-left">Post Distribution</li>
-			<li class="category-header-right">As of {new Date().toLocaleString('en-US')}</li>
-		</ul>
-		<ul class="chart-container-main">
-			<canvas id="postdistribution" height=500></canvas>
-		</ul>
-	</ul>
-	<ul class="chart-container">
-		<ul class="chart-container-header">
 			<li class="category-header-left">Total Post Count</li>
     <li class="category-header-right">Monthly, All Time</li>
 		</ul>
@@ -239,8 +230,6 @@
 			<canvas id="totalpostcountmonthly" height=500></canvas>
 		</ul>
 	</ul>
-</ul>
-<ul class="main-container">
 	<ul class="chart-container">
 		<ul class="chart-container-header">
 			<li class="category-header-left">Total Post Count</li>
@@ -250,6 +239,8 @@
 			<canvas id="totalpostcountweekly" height=500></canvas>
 		</ul>
 	</ul>
+</ul>
+<ul class="main-container">
 	<ul class="chart-container">
 		<ul class="chart-container-header">
 			<li class="category-header-left">Posts Per Month</li>
@@ -259,8 +250,6 @@
 			<canvas id="postspermonth" height=500></canvas>
 		</ul>
 	</ul>
-</ul>
-<ul class="main-container">
 	<ul class="chart-container">
 		<ul class="chart-container-header">
 			<li class="category-header-left">Posts Per Week</li>
@@ -268,6 +257,17 @@
 		</ul>
 		<ul class="chart-container-main">
 			<canvas id="postsperweek" height=500></canvas>
+		</ul>
+	</ul>
+</ul>
+<ul class="main-container">
+	<ul class="chart-container">
+		<ul class="chart-container-header">
+			<li class="category-header-left">Post Distribution</li>
+			<li class="category-header-right">As of {new Date().toLocaleString('en-US')}</li>
+		</ul>
+		<ul class="chart-container-main">
+			<canvas id="postdistribution" height=500></canvas>
 		</ul>
 	</ul>
 </ul>

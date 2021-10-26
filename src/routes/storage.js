@@ -10,6 +10,7 @@ export const themeDropdownActive = writable(false);
 export const pageSearchActive = writable(false);
 export const highlight = writable("var(--accent)");
 export const searchActive = writable(false);
+export const isOnUserPage = writable(false);
 
 // persistent storage
 export const name = writable("postpercent");
