@@ -62,6 +62,7 @@ function keyDown (event)    {
     </nav>
 </div>
 <svelte:window on:keydown={keyDown}></svelte:window>
+<Dialog></Dialog>
 <style>
     #top-wrapper {position: sticky; top: 0px; z-index: 999; padding: 0% 4%; display: flex; flex-direction: row; background-color: var(--background);}
     .link:hover {
