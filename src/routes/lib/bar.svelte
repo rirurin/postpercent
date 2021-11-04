@@ -40,6 +40,7 @@
                 const contraster = [];
                 contraster.push(HEXtoRGB(custom.color).r); contraster.push(HEXtoRGB(custom.color).g); contraster.push(HEXtoRGB(custom.color).b);
                 const brightness = Math.round(((parseInt(contraster[0]) * 299) + (parseInt(contraster[1]) * 587) + (parseInt(contraster[2]) * 114)) / 1000);
+                custom.brightness = brightness;
                 if ($theme == "system" || $theme == "dark") {
                     brightness > 150 ? lightText = 1 : lightText = 0;
                 } else  {
@@ -64,11 +65,11 @@
     <ul class="rank" style="min-width: calc(2.5em + {Math.floor(Math.log(page + 1))/2}em);">
         <li>{rank}</li>
     </ul>
-    <ul class="bar" style="width: {barWidth}%; background-color: {barColor}; color: {lightText == 1 && width > 5 ? `var(--background)` : `var(--text)`}; transition: width 1s, background-color 1s, color 1s;">
+    <ul class="bar" style="width: {barWidth}%; background-color: {barColor}; color: {lightText == 1 && width > 5 ? `var(--background)` : `var(--text)`}; transition: width 0.7s, background-color 0.7s, color 0.7s;">
         {#if user}
             <!-- svelte-ignore a11y-missing-attribute -->
-            <li><a href="/users/{user.username}"><img src="https://cdn2.scratch.mit.edu/get_image/user/{user.id}_90x90.png" style={width > 5 ? "width: 2em; height: 2em;" : "display: none;"}></a></li>
-            <li class="username"><a href="/users/{user.username}"><nobr>{user.username}{user.status == "Scratch Team" ? "*" : ""}</nobr></a></li>
+            <li><a href="/users/{user.username}" class="bar-image"><img src="https://cdn2.scratch.mit.edu/get_image/user/{user.id}_90x90.png" style={width > 5 ? "width: 2em; height: 2em;" : "display: none;"} alt="{user.username}" ></a></li>
+            <li class="username-leaderboard"><a href="/users/{user.username}"><nobr>{user.username}{user.status == "Scratch Team" ? "*" : ""}</nobr></a></li>
             <li class="posts">
                 <a href="/users/{user.username}" style="font-weight: bold;">{posts}</a>
                 {#if barWidth > 12 && $cat != "total"}
@@ -77,7 +78,7 @@
             </li>
         {:else}
             <li><a href="/users/{username}"><span class="iconify" data-icon="ant-design:user-outlined" data-inline="false"></span></a></li>
-            <li class="username"><a href="/users/{username}"><nobr>{username}</nobr></a></li>
+            <li class="username-leaderboard"><a href="/users/{username}"><nobr>{username}</nobr></a></li>
             <li class="posts">
                 <a href="/users/{username}" style="font-weight: bold;">{posts}</a>
                 {#if barWidth > 12 && $cat != "total"}
@@ -121,10 +122,17 @@
     .posts {
         white-space: nowrap;
     }
-    .username   {
+    .username-leaderboard   {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+    }
+    .bar-image {
+        height: 2em;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
     }
     @media only screen and (max-width: 1200px)   {
         .percentage {

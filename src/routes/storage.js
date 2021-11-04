@@ -1,13 +1,16 @@
 import { writable } from 'svelte/store';
 // in app storage
 export const page = writable(0);
+export const category = writable(0);
 export const cat = writable("total");
+export const isCategorySearching = writable(false);
 export const dialogActive = writable(false);
 export const categoryDropdownActive = writable(false);
 export const themeDropdownActive = writable(false);
 export const pageSearchActive = writable(false);
 export const highlight = writable("var(--accent)");
 export const searchActive = writable(false);
+export const isOnUserPage = writable(false);
 
 // persistent storage
 export const name = writable("postpercent");

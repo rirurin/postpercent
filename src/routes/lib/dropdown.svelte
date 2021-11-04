@@ -16,13 +16,13 @@
 
 </script>
 {#if type == "leaderboard"}
-<ul style={$categoryDropdownActive ? "display: flex; overflow-y: scroll;" : "display: none; overflow-y: hidden;"}>
+<ul style={$categoryDropdownActive ? "display: flex; overflow-y: scroll;" : "display: none; overflow-y: hidden;"} class="dropdown">
     {#each options as i}
         <li on:click={() => changeCategory(i)}>{i == "total" ? "All Categories" : i}</li>
     {/each}
 </ul>
 {:else}
-<ul style={$themeDropdownActive ? "display: flex; overflow-y: scroll;" : "display: none; overflow-y: hidden;"}>
+<ul style={$themeDropdownActive ? "display: flex; overflow-y: scroll;" : "display: none; overflow-y: hidden;"} class="dropdown">
     {#each options as i}
         <li on:click={() => changeCategory(i)}>{i == "total" ? "All Categories" : i}</li>
     {/each}
@@ -43,7 +43,6 @@
     li  {
         border-bottom: 1px solid var(--text);
         padding: 5px 0;
-        user-select: none;
         cursor: pointer;
     }
     li:first-child  {
@@ -59,5 +58,9 @@
         ul  {
             width: 50%;
         }
+    }
+    .dropdown {
+        overflow-y: scroll;
+        align-items: flex-start;
     }
 </style>
