@@ -38,7 +38,7 @@
         <div class="front-page-box-container">
             <div class="front-page-box">
                 <div class="front-page-box-image">
-                    Image
+                    <span class="iconify front-page-image" data-icon="mdi:view-list"></span>
                 </div>
                 <div class="front-page-box-title">
                     <a href="/forum/0/1">Leaderboards</a>
@@ -46,7 +46,7 @@
             </div>
             <div class="front-page-box">
                 <div class="front-page-box-image">
-                    Image
+                    <span class="iconify front-page-image" data-icon="mdi:account-multiple"></span>
                 </div>
                 <div class="front-page-box-title">
                     <a href="/users/CatsUnited">Users</a>
@@ -83,5 +83,8 @@
     }
     .front-page-title-container {
         background-color: var(--accent);
+    }
+    .front-page-image {
+        font-size: 32px;
     }
 </style>
