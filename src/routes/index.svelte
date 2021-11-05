@@ -36,22 +36,22 @@
             The tool for viewing statistics for users of the Scratch Forums
         </div>
         <div class="front-page-box-container">
-            <div class="front-page-box">
+            <a href="/forum/0/1" class="front-page-box">
                 <div class="front-page-box-image">
                     <span class="iconify front-page-image" data-icon="mdi:view-list"></span>
                 </div>
                 <div class="front-page-box-title">
-                    <a href="/forum/0/1">Leaderboards</a>
+                    Leaderboards
                 </div>
-            </div>
-            <div class="front-page-box">
+            </a>
+            <a href="/users/CatsUnited" class="front-page-box">
                 <div class="front-page-box-image">
                     <span class="iconify front-page-image" data-icon="mdi:account-multiple"></span>
                 </div>
                 <div class="front-page-box-title">
-                    <a href="/users/CatsUnited">Users</a>
+                    Users
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 </main>
