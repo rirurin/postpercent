@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte';
+    import { theme } from './storage.js';
     import Header from './lib/header.svelte';
     let contributors;
 	async function getData()    {
@@ -17,7 +18,7 @@
     let promise = getData();
 </script>
 {#await promise}
-    loading
+<img src="/loading.gif" alt="Loading" class="loading" style="filter: {$theme == "light" || $theme == "jeffalo" ? `brightness(-100)` : `brightness(100)`}">
 {:then}
     <Header>
         <div class="about-header">

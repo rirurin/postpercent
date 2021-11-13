@@ -6,7 +6,7 @@
 </script>
 <script>
 	import { onMount } from 'svelte';
-	import { theme, cat, highlight, isOnUserPage } from '../storage.js';
+	import { theme, cat, highlight, isOnUserPage, isCategorySearching } from '../storage.js';
 	import { HEXtoRGB } from '../lib/hextorgb.js';
 	import { rankifier } from '../lib/rankifier.js';
 	import { HSVtoRGB } from '../lib/hsvtorgb.js';
@@ -30,6 +30,8 @@
 	let coolTransition = 0;
 
 	let userFound = true
+	isCategorySearching.set(false);
+
 
 	async function getData()    {
 		await fetch(`https://scratchdb.lefty.one/v3/user/info/${slug}`)

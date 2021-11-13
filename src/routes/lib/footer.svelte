@@ -29,8 +29,8 @@ import { onMount } from 'svelte';
     </ul>
     <ul>
         <li>Data Used</li>
-        <li>my-ocular API (Jeffalo)</li>
-	    <li>ScratchDB (DatOneLefty)</li>
+        <li>my-ocular API (<a href="https://scratch.mit.edu/users/Jeffalo/">@Jeffalo <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>)</li>
+	    <li>ScratchDB (<a href="https://scratch.mit.edu/users/DatOneLefty/">@DatOneLefty <span class="iconify" data-icon="heroicons-solid:external-link" data-inline="false"></span></a>)</li>
     </ul>
     <ul class="right">
         <li>Discuss</li>
