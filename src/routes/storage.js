@@ -24,7 +24,7 @@ export const themes = [
   "jeffalo"
 ]
 
-export const categories = [
+export const categories = writable([
     ["0", "total"],
     ["1", "Suggestions"],
     // ["2", "Dustbin"],
@@ -81,4 +81,4 @@ export const categories = [
     // ["57", "Scratch 3.0 Beta"],
     // ["58", "Camp Counselors 2020"],
     ["59", "فارسی"],
-  ];
+  ]);

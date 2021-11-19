@@ -6,7 +6,7 @@
 </script>
 <script>
 	import { onMount } from 'svelte';
-	import { theme, cat, highlight, isOnUserPage, isCategorySearching } from '../storage.js';
+	import { theme, cat, categories, highlight, isOnUserPage, isCategorySearching } from '../storage.js';
 	import { HEXtoRGB } from '../lib/hextorgb.js';
 	import { rankifier } from '../lib/rankifier.js';
 	import { HSVtoRGB } from '../lib/hsvtorgb.js';
@@ -56,7 +56,7 @@
 			} else	{
 				for (let i = 1; i < Object.keys(forum.counts).length - 1; i++)	{
 					// pieColorsDark.push(`rgb(${Math.random()*100},${Math.random()*100},${Math.random()*100})`)
-					pieColors.push(`rgb(${255 - Math.random()*200},${255 - Math.random()*200},${255 - Math.random()*200})`)
+					pieColors.push(`rgb(${200 - Math.random()*200},${200 - Math.random()*200},${200 - Math.random()*200})`)
 				}
 			}
         })
@@ -220,15 +220,15 @@
 	<img src="/loading.gif" alt="Loading" class="loading" style="filter: {$theme == "light" || $theme == "jeffalo" ? `brightness(-100)` : `brightness(100)`}">
 	{:then}
 	{#if forum.counts.total.count > 0}
-		<!--
+		<Charts username={slug} color={custom.color ? custom.color : `#f54260`} colors={pieColors}></Charts>
 		<div class="post-dist-title">
 			<div class="category-header-left">Categories posted</div>
 		</div>
 		<div class="post-dist-container">
 			{#each Object.entries(forum.counts) as i, j}
 				{#if i[0] != `total`}
-					<div class="post-dist-bar" style="background-color: {pieColors[j - 1]}; order: {i[1].count * -1}">
-						<li><a href="../" on:click={cat.set(i[0])}>{i[0]}</a></li>
+					<div class="post-dist-bar" style="background-color: {pieColors[j - 1]}; order: {i[1].count * -1}; width: {Math.round(i[1].count / forum.counts.total.count * 2.5 * 10000)/100}%">
+						<li><a href={`../forum/${$categories[$categories.map(x => x[1]).flat(2).indexOf(i[0])][0]}/1`} on:click={cat.set(i[0])}>{i[0]}</a></li>
 						<ul>
 							<li>{i[1].count}</li>
 							<li>{rankifier(i[1].rank)}</li>
@@ -238,9 +238,6 @@
 				{/if}
 			{/each}
 		</div>
-		<br>
-		-->
-		<Charts username={slug} color={custom.color ? custom.color : `#f54260`} colors={pieColors}></Charts>
 		<History username={slug} color={custom.color ? custom.color : `#f54260`} colors={pieColors} categories={forum.counts}></History>
 	{:else}
 	<div class="no-post-notice">
