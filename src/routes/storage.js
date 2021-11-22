@@ -77,6 +77,7 @@ export const categories = writable([
     // ["52", "Scratch Day 2016"],
     // ["53", "[unknown (for now)]"],
     // ["54", "Scratch Day 2017"],
+    ["55", "Africa"],
     // ["56", "[unknown (for now)]"],
     // ["57", "Scratch 3.0 Beta"],
     // ["58", "Camp Counselors 2020"],
