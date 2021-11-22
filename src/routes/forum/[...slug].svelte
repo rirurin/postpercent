@@ -99,10 +99,11 @@
 <HeaderMain/>
 <Header>
     <ul class="category-display-container" style="height: {$isCategorySearching ? '10em' : '0em'}; overflow-y: scroll;">
-        {#each categories.map(x => x[1, 0]) as i, j}
-            <Category link={i} name={j}></Category>
+        {#each $categories.map(x => x[0, 1]) as i, j}
+            <Category link={j} name={i}></Category>
         {/each}
     </ul>
+    
 </Header>
 
 <Graph page={$page} category={$cat}></Graph>
