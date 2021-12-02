@@ -226,7 +226,7 @@
 		</div>
 		<div class="post-dist-container">
 			{#each Object.entries(forum.counts) as i, j}
-				{#if i[0] != `total`}
+				{#if i[0] != `total` && i[0] != `undefined`}
 					<div class="post-dist-bar" style="background-color: {pieColors[j - 1]}; order: {i[1].count * -1}; width: {Math.round(i[1].count / forum.counts.total.count * 2.5 * 10000)/100}%">
 						<li><a href={`../forum/${$categories[$categories.map(x => x[1]).flat(2).indexOf(i[0])][0]}/1`} on:click={cat.set(i[0])}>{i[0]}</a></li>
 						<ul>
