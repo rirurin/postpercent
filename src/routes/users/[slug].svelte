@@ -83,6 +83,11 @@
             throw new Error('Something went wrong D:');
         })
     }
+    await fetch(`https://aviateapp.eu.org/api/${slug}/`)
+        .then(res => res.json())
+        .then(data => {
+            aviateStatus = data;
+        })
     let promise = getData();
 	let lightSystem;
     onMount(async() => {
@@ -143,6 +148,9 @@
 					{:else}
 						Getting status...
 					{/if}
+				</li>
+				<li class="status">
+					{aviateStatus}
 				</li>
 				<ul class="posts-container">
 					<ul class="total-post-container">
