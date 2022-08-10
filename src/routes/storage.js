@@ -82,4 +82,5 @@ export const categories = writable([
     // ["57", "Scratch 3.0 Beta"],
     // ["58", "Camp Counselors 2020"],
     ["59", "فارسی"],
+    ["60", "Project Save & Level Codes"],
   ]);
